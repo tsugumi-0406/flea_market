@@ -1,0 +1,34 @@
+.header{
+    height: 80px;
+    background-color: #000000;
+    display: flex;
+    padding-left: 20px;
+}
+
+.header-form__text{
+    height: 60px;
+    width: 500px;
+    margin: 10px 60px;
+    padding-left: 20px;
+    font-size: 25px;
+}
+
+.header-link__login{
+    color: #FFFFFF;
+    margin: auto;
+    cursor: pointer;
+}
+
+.header-link__mupage{
+    color: #FFFFFF;
+    margin: auto;
+    cursor: pointer;
+}
+
+.header-link__sell{
+    background-color: #FFFFFF;
+    margin: auto;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}

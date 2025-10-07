@@ -1,0 +1,39 @@
+.page-link{
+    border-bottom: 2px solid #5F5F5F;
+    height: 50px;
+    margin-top: 30px;
+}
+
+.page-link__recommendation{
+    text-decoration: none;
+    font-size: 25px;
+    color: #FF0000;
+    font-weight: 700;
+    margin-left: 140px;
+}
+
+.page-link__mylist{
+    text-decoration: none;
+    font-size: 25px;
+    color: #5F5F5F;
+    font-weight: 700;
+    margin-left: 90px;
+}
+
+.item-list{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.item-card{
+    width: 21%;
+    margin: 30px 20px;
+}
+
+.item-card__name{
+    font-size: 20px;
+    margin-top: 0px;
+}
