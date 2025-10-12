@@ -1,10 +1,10 @@
 # flea_market
 
-##　環境構築
+## 環境構築
 
 Dockerビルド
 
-1. get clone https://github.com/tsugumi-0406/flea_market  
+1. get clone https://github.com/tsugumi-0406/flea_market<br>
 2. docker-compose up -d --build
 
 Laravel 環境構築
@@ -23,5 +23,5 @@ Laravel 環境構築
 .MySQL 8.0.26  
 
 ## URL
-・開発環境 : http://localhost/products  
+・開発環境 : http://localhost/products<br>
 ・phpMyAdmin : http://localhost:8080/  
