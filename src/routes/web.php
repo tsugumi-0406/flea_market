@@ -17,13 +17,11 @@ use App\Http\Controllers\ItemController;
 
 Route::get('/', [ItemController::class, 'index']);
 
-// Route::get('/?tab=mylist', [ItemController::class, 'mylist']);
+Route::get('/register', [UserController::class, 'register']);
 
-// Route::get('/register', [UserController::class, 'register']);
+Route::get('/login', [UserController::class, 'login']);
 
-// Route::get('/login', [UserController::class, 'login']);
-
-// Route::get('/item/{item_id}', [ItemController::class, 'item']);
+Route::get('/item/{item_id}', [ItemController::class, 'detail']);
 
 // Route::get('/purchase/{item_id}', [ItemController::class, 'purchase']);
 
