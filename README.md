@@ -18,9 +18,9 @@ Laravel 環境構築
 7. php artisan storage:link
 
 ## 使用技術
-・PHP 8.1<br>
-.Laravel 8.83.29<br>
-.MySQL 8.0.26
+ PHP 8.1<br>
+ Laravel 8.83.29<br>
+ MySQL 8.0.26
 
 ## URL
 ・開発環境 : http://localhost/products<br>
