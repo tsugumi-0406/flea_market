@@ -1,6 +1,6 @@
 # flea_market
 
-##　環境構築
+## 環境構築
 
 Dockerビルド
 
