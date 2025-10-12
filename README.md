@@ -17,11 +17,11 @@ Laravel 環境構築
 6. php artisan db:seed
 7. php artisan storage:link
 
-##使用技術
+## 使用技術
 ・PHP 8.1
 .Laravel 8.83.29
 .MySQL 8.0.26
 
-##URL
+## URL
 ・開発環境 : http://localhost/products
 ・phpMyAdmin : http://localhost:8080/
