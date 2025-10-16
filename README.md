@@ -4,7 +4,7 @@
 
 Dockerビルド
 
-1. get clone https://github.com/tsugumi-0406/flea_market<br>
+1. git clone https://github.com/tsugumi-0406/flea_market<br>
 2. docker-compose up -d --build
 
 Laravel 環境構築

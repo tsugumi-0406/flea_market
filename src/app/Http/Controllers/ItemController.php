@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Like;
+use App\Models\Category;
 use App\Models\Comment;
 
 
@@ -36,6 +37,18 @@ class ItemController extends Controller
     {
         $item = Item::with('comments')->findOrFail($item_id);
         return view('detail', compact('item'));
+    }
+
+    public function purchase($item_id)
+    {
+        $item = Item::find($item_id);
+        return view('purchase', compact('item'));
+    }
+
+    public function sell()
+    {
+        $categories = Category::all();
+        return view('sell', compact('categories'));
     }
 }
 
