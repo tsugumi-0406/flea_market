@@ -4,23 +4,19 @@
     margin-top: 30px;
 }
 
-.page-link__recommendation{
-    text-decoration: none;
+.page-link{
     font-size: 25px;
-    color: #FF0000;
     font-weight: 700;
     margin-left: 140px;
-}
-
-.page-link__mylist{
+    color: #5F5F5F; 
     text-decoration: none;
-    font-size: 25px;
-    color: #5F5F5F;
-    font-weight: 700;
-    margin-left: 90px;
 }
 
-.item-list{
+.tab-link.active {
+    color: #FF0000;
+}
+
+.recomendation-list{
     width: 90%;
     margin: auto;
     display: flex;

@@ -17,24 +17,18 @@ use App\Http\Controllers\ItemController;
 
 Route::get('/', [ItemController::class, 'index']);
 
-// Route::get('/?tab=mylist', [ItemController::class, 'mylist']);
+Route::get('/register', [UserController::class, 'register']);
 
-// Route::get('/register', [UserController::class, 'register']);
+Route::get('/login', [UserController::class, 'login']);
 
-// Route::get('/login', [UserController::class, 'login']);
+Route::get('/item/{item_id}', [ItemController::class, 'detail']);
 
-// Route::get('/item/{item_id}', [ItemController::class, 'item']);
+Route::get('/purchase/{item_id}', [ItemController::class, 'purchase']);
 
-// Route::get('/purchase/{item_id}', [ItemController::class, 'purchase']);
+Route::get('/purchase/address/{item_id}', [UserController::class, 'address']);
 
-// Route::get('/purchase/address/{item_id}', [UserController::class, 'address']);
+Route::get('/sell', [ItemController::class, 'sell']);
 
-// Route::get('/sell', [ItemController::class, 'sell']);
+Route::get('/mypage', [UserController::class, 'mypage']);
 
-// Route::get('/mypage', [UserController::class, 'mypage']);
-
-// Route::get('/mypage/profile', [UserController::class, 'profile']);
-
-// Route::get('/mypage?page=buy', [ItemController::class, 'buy']);
-
-// Route::get('/mypage?page=sell', [ItemController::class, 'sell']);
+Route::get('/mypage/profile', [UserController::class, 'profile']);
