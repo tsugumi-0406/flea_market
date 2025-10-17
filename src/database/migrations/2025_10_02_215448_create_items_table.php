@@ -21,7 +21,7 @@ class CreateItemsTable extends Migration
             $table->string('brand');
             $table->text('description');
             $table->integer('price');
-            $table->foreignId('user_id');
+            $table->foreignId('account_id');
             $table->timestamps();
         });
     }

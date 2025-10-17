@@ -22,7 +22,7 @@ class ItemsTableSeeder extends Seeder
             'brand' => 'Rolax',
             'description' => 'スタイリッシュなデザインのメンズ腕時計',
             'price' => 15000,
-            'user_id' => 1,
+            'account_id' => 1,
         ],
         [
             'image' => 'item_image/HDD+Hard+Disk.jpg',
@@ -31,7 +31,7 @@ class ItemsTableSeeder extends Seeder
             'brand' => '西芝',
             'description' => '高速で信頼性の高いハードディスク',
             'price' => 5000,
-            'user_id' => 2,
+            'account_id' => 2,
         ],
         [
             'image' => 'item_image/iLoveIMG+d.jpg',
@@ -40,7 +40,7 @@ class ItemsTableSeeder extends Seeder
             'brand' => 'なし',
             'description' => '新鮮な玉ねぎ3束のセット',
             'price' => 300,
-            'user_id' => 3,
+            'account_id' => 3,
         ],
         [
             'image' => 'item_image/Leather+Shoes+Product+Photo.jpg',
@@ -49,7 +49,7 @@ class ItemsTableSeeder extends Seeder
             'brand' => '',
             'description' => 'クラッシックなデザインの革靴',
             'price' => 4000,
-            'user_id' => 4,
+            'account_id' => 4,
         ],
         [
             'image' => 'item_image/Living+Room+Laptop.jpg',
@@ -58,7 +58,7 @@ class ItemsTableSeeder extends Seeder
             'brand' => '',
             'description' => '高性能なノートパソコン',
             'price' => '45000',
-            'user_id' => 5,
+            'account_id' => 5,
         ],
         [
             'image' => 'item_image/Music+Mic+4632231.jpg',
@@ -67,7 +67,7 @@ class ItemsTableSeeder extends Seeder
             'brand' => 'なし',
             'description' => '高音質のレコーディング用マイク',
             'price' => '8000',
-            'user_id' => 6,
+            'account_id' => 6,
         ],
         [
             'image' => 'item_image/Purse+fashion+pocket.jpg',
@@ -76,7 +76,7 @@ class ItemsTableSeeder extends Seeder
             'brand' => '',
             'description' => 'おしゃれなショルダーバッグ',
             'price' => '3500',
-            'user_id' => 7,
+            'account_id' => 7,
         ],
         [
             'image' => 'item_image/Tumbler+souvenir.jpg',
@@ -85,7 +85,7 @@ class ItemsTableSeeder extends Seeder
             'brand' => 'なし',
             'description' => '使いやすいタンブラー',
             'price' => '500',
-            'user_id' => 8,
+            'account_id' => 8,
         ],
         [
             'image' => 'item_image/Waitress+with+Coffee+Grinder.jpg',
@@ -94,7 +94,7 @@ class ItemsTableSeeder extends Seeder
             'brand' => 'Starbacks',
             'description' => '手動のコーヒーミル',
             'price' => '4000',
-            'user_id' => 9,
+            'account_id' => 9,
         ],
         [
             'image' => 'item_image/外出メイクアップセット.jpg',
@@ -103,7 +103,7 @@ class ItemsTableSeeder extends Seeder
             'brand' => '',
             'description    ' => '便利なメイクアップセット',
             'price' => '2500',
-            'user_id' => 10,
+            'account_id' => 10,
         ],
        ]) ;
     }

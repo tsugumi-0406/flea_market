@@ -15,11 +15,11 @@ use App\Http\Controllers\ItemController;
 |
 */
 
+Route::get('/test', function () {
+    return 'Web routes are working!';
+});
+
 Route::get('/', [ItemController::class, 'index']);
-
-Route::get('/register', [UserController::class, 'register']);
-
-Route::get('/login', [UserController::class, 'login']);
 
 Route::get('/item/{item_id}', [ItemController::class, 'detail']);
 
