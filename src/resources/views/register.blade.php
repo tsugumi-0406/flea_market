@@ -19,30 +19,31 @@
             <h1 class="main-title">
                  会員登録
             </h1>
-            <form action="" class="main-form">
+            <form action="/register" class="main-form" method="post">
+                @csrf
                 <label for="" class="main-form__label">ユーザー名</label>
-                <input type="text" class="main-form__input">
+                <input type="text" class="main-form__input" name="name">
                 <div class="main-form__error">
                 @error('name')
                     {{ $errors->first('name') }}
                 @enderror
                 </div>
-                <label for="" class="main-form__label">メールアドレス</label>
-                <input type="text" class="main-form__input">
+                <label class="main-form__label">メールアドレス</label>
+                <input type="email" class="main-form__input" name="email">
                 <div class="main-form__error">
                 @error('name')
                     {{ $errors->first('email') }}
                 @enderror
                 </div>
-                <label for="" class="main-form__label"> パスワード</label>
-                <input type="text" class="main-form__input">
+                <label class="main-form__label"> パスワード</label>
+                <input type="password" name="password" class="main-form__input">
                 <div class="main-form__error">
                 @error('name')
                     {{ $errors->first('password') }}
                 @enderror
                 </div>
-                <label for="" class="main-form__label">確認用パスワード</label>
-                <input type="text" class="main-form__input">
+                <label class="main-form__label">確認用パスワード</label>
+                <input type="password" class="main-form__input" name="password_confirmation">
                 <div class="main-form__error">
                 @error('name')
                     {{ $errors->first('password') }}
