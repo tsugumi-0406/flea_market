@@ -16,9 +16,16 @@
         <form action="" class="header-form">
             <input type="text" class="header-form__text" placeholder="何をお探しですか？">
         </form>
-        <a class="header-link__login">ログイン</a>
+        @if (Auth::check())
+            <form action="/logout" method="post">
+             @csrf
+                <button class="header-button__logout">ログアウト</button>
+            </form>
+        @else
+            <a class="header-link__login" href="/login">ログイン</a>
+        @endif
         <a class="header-link__mupage">マイページ</a>
-        <a class="header-link__sell">出品</a>
+        <a class="header-link__sell" href="/sell">出品</a>
     </header>
     <main>
         @yield('content')

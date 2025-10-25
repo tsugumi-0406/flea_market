@@ -19,7 +19,7 @@
             <h1 class="main-title">
                  会員登録
             </h1>
-            <form action="/register" class="main-form" method="post">
+            <form action="/register" class="main-form" method="post" novalidate>
                 @csrf
                 <label for="" class="main-form__label">ユーザー名</label>
                 <input type="text" class="main-form__input" name="name">
@@ -29,9 +29,9 @@
                 @enderror
                 </div>
                 <label class="main-form__label">メールアドレス</label>
-                <input type="email" class="main-form__input" name="email">
+                <input type="email" class="main-form__input" name="email" >
                 <div class="main-form__error">
-                @error('name')
+                @error('email')
                     {{ $errors->first('email') }}
                 @enderror
                 </div>
