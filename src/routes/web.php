@@ -15,10 +15,6 @@ use App\Http\Controllers\ItemController;
 |
 */
 
-Route::get('/test', function () {
-    return 'Web routes are working!';
-});
-
 Route::get('/', [ItemController::class, 'index']);
 
 Route::get('/item/{item_id}', [ItemController::class, 'detail']);

@@ -9,7 +9,8 @@
         <h1 class="main-title">
             プロフィール設定
         </h1>
-        <form action="" class="main-form">
+        <form action="" class="main-form" method="post">
+            @csrf
             <div class="main-form__image">
                 <p>アイコン画像</p>
                 <input type="file" name="image" accept="image/*" hidden id="imageInput">

@@ -13,6 +13,15 @@
     font-size: 25px;
 }
 
+.header-button__logout{
+    color: #FFFFFF;
+    margin: 25px;
+    cursor: pointer;
+    background-color: #000000;
+    border: none;
+    font-size: 18px;
+}
+
 .header-link__login{
     color: #FFFFFF;
     margin: auto;
