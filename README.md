@@ -3,17 +3,10 @@
 ## 環境構築
 
 Dockerビルド
-
-<<<<<<< HEAD
 1. git clone https://github.com/tsugumi-0406/flea_market<br>
 2. docker-compose up -d --build
-=======
-1.git clone https://github.com/tsugumi-0406/flea_market<br>
-2.docker-compose up -d --build
->>>>>>> 0b6f85b1e1a08e8136d131419cea8762b8587930
 
 Laravel 環境構築
-
 1. docker-compose exec php bash
 2. composer install
 3. .env.example ファイルから.envを作成する
@@ -37,3 +30,6 @@ Laravel 環境構築
 ## URL
 ・開発環境 : http://localhost/products<br>
 ・phpMyAdmin : http://localhost:8080/
+
+
+![alt text](image.png)
