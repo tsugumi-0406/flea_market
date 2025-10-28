@@ -33,4 +33,4 @@ Laravel 環境構築
 
 
 ## ER図
-![alt text](image-1.png)
+![ER図](image.png)
