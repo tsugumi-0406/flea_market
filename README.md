@@ -32,4 +32,5 @@ Laravel 環境構築
 ・phpMyAdmin : http://localhost:8080/
 
 
-![alt text](image.png)
+## ER図
+![ER図](image.png)
