@@ -50,5 +50,22 @@ class ItemController extends Controller
         $categories = Category::all();
         return view('sell', compact('categories'));
     }
+
+    public function listing(ExhibitionRequest $request)
+    {
+        $item = $request->all();
+        $item['account_id'] = Auth::id();
+
+        $item['image'] = 'noimage.png';
+
+
+         if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('item_image', 'public');
+            $item['image'] = $path;
+        }
+
+        Item::create($item);
+        return redirect('/');
+    }
 }
 

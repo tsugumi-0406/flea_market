@@ -53,4 +53,8 @@ class User extends Authenticatable
     public function comments(){
             return $this->hasmany('App\Models\Comment');
     }
+
+    public function accounts(){
+            return $this->hasone('App\Models\Account');
+    }
 }

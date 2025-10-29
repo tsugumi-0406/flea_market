@@ -19,12 +19,18 @@ Route::get('/', [ItemController::class, 'index']);
 
 Route::get('/item/{item_id}', [ItemController::class, 'detail']);
 
-Route::get('/purchase/{item_id}', [ItemController::class, 'purchase']);
+Route::middleware('auth')->group(function () {
+    Route::get('/purchase/{item_id}', [ItemController::class, 'purchase']);
 
-Route::get('/purchase/address/{item_id}', [UserController::class, 'address']);
+    Route::get('/purchase/address/{item_id}', [UserController::class, 'address']);
 
-Route::get('/sell', [ItemController::class, 'sell']);
+    Route::get('/sell', [ItemController::class, 'sell']);
 
-Route::get('/mypage', [UserController::class, 'mypage']);
+    Route::get('/mypage', [UserController::class, 'mypage']);
 
-Route::get('/mypage/profile', [UserController::class, 'profile']);
+    Route::get('/mypage/profile', [UserController::class, 'profile']);
+
+    Route::post('/listing', [ItemController::class, 'listing']);
+
+    Route::post('/profile', [UserController::class, 'update']);
+});

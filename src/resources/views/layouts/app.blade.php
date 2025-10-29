@@ -24,7 +24,7 @@
         @else
             <a class="header-link__login" href="/login">ログイン</a>
         @endif
-        <a class="header-link__mupage">マイページ</a>
+        <a class="header-link__mupage" href="/mypage">マイページ</a>
         <a class="header-link__sell" href="/sell">出品</a>
     </header>
     <main>

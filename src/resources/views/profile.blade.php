@@ -9,41 +9,65 @@
         <h1 class="main-title">
             プロフィール設定
         </h1>
-        <form action="" class="main-form" method="post">
+        <form action="/profile" class="main-form" method="post" enctype="multipart/form-data">
             @csrf
             <div class="main-form__image">
-                <p>アイコン画像</p>
+                 @if (!empty($account) && !empty($account->image))
+                    <img src="{{ asset('storage/' . $account->image) }}" 
+                        alt="プロフィール画像" 
+                        class="img-content" width="300px" height="300px">
+                @else
+                    <img src="{{ asset('storage/noimage.png') }}" 
+                        alt="no image" 
+                        class="img-content">
+                @endif
                 <input type="file" name="image" accept="image/*" hidden id="imageInput">
                 <button type="button" class="form__input-image" onclick="document.getElementById('imageInput').click();">
                     画像を選択する
                 </button>
             </div>
-            <label for="" class="main-form__label">ユーザー名</label>
-            <input type="text" class="main-form__input">
+            <label class="main-form__label">ユーザー名</label>
+            @if (!empty($account) && !empty($account->image))
+                <input type="text" class="main-form__input" name="name" value="{{$account->name}}"">
+            @else
+                <input type="text" class="main-form__input" name="name">
+            @endif
             <div class="main-form__error">
             @error('name')
                 {{ $errors->first('name') }}
             @enderror
             </div>
-            <label for="" class="main-form__label">郵便番号</label>
-            <input type="text" class="main-form__input">
+            <label class="main-form__label">郵便番号</label>
+            @if (!empty($account) && !empty($account->image))
+                <input type="text" class="main-form__input" name="post_code" value="{{$account->post_code}}">
+            @else
+                <input type="text" class="main-form__input" name="post_code">
+            @endif
             <div class="main-form__error">
             @error('post_code')
                 {{ $errors->first('post_code') }}
             @enderror
             </div>
             <label for="" class="main-form__label"> 住所</label>
-            <input type="text" class="main-form__input">
+            @if (!empty($account) && !empty($account->image))
+                <input type="text" class="main-form__input" name="address" value="{{$account->address}}">
+            @else
+                <input type="text" class="main-form__input" name="address">
+            @endif
             <div class="main-form__error">
-            @error('name')
+            @error('address')
                 {{ $errors->first('address') }}
             @enderror
             </div>
-            <label for="" class="main-form__label"> 建物名</label>
-            <input type="text" class="main-form__input">
+            <label class="main-form__label"> 建物名</label>
+             @if (!empty($account) && !empty($account->image))
+                <input type="text" class="main-form__input" name="building" value="{{$account->building}}">
+            @else
+                <input type="text" class="main-form__input" name="building">
+            @endif
             <div class="main-form__error">
-            @error('name')
-                {{ $errors->first('build') }}
+            @error('building')
+                {{ $errors->first('building') }}
             @enderror
             </div>
             <input type="submit" class="main-dorm__submit" value="更新する">
