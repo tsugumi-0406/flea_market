@@ -38,26 +38,4 @@ use Illuminate\Validation\ValidationException;
                 'password.required' => 'パスワードを入力してください',
             ];
         }
-        
-        public function authenticate()
-{
-    // ✅ バリデーションをここで実行（手動）
-    $this->validate(
-        $this->rules(),
-        $this->messages()
-    );
-
-    // ✅ ログイン試行回数チェック
-    $this->ensureIsNotRateLimited();
-
-    // ✅ 認証処理
-    if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-        throw ValidationException::withMessages([
-            'email' => ['ログイン情報が登録されていません。'],
-        ]);
-    }
-
-    // ✅ 成功したら制限解除
-    rateLimiter()->clear($this->throttleKey());
-}
     }

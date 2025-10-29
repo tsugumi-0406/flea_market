@@ -8,7 +8,7 @@
 <div class="mypage">
     <p>アイコン</p>
     <p class="mypage__user-name">ユーザー名</p>
-    <a href="" class="mypage__link">プロフィールを編集</a>
+    <a href="/mypage/profile" class="mypage__link">プロフィールを編集</a>
 </div>
 
 <div class="page-link__group">

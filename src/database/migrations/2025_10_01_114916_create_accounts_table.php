@@ -15,6 +15,8 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->string('image');
             $table->string('name');
             $table->string('post_code');
             $table->string('address');

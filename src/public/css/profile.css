@@ -12,6 +12,11 @@
     display: flex;
 }
 
+.img-content{
+    border-radius: 50%;
+    background-color: gray;
+}
+
 .form__input-image{
     color: #FF5555;
     border: solid 2px #FF5555;
