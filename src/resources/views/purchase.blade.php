@@ -29,11 +29,11 @@
     </div>
     <div class="center">
         <h2 class="center__title">支払方法</h2>
-        <form action="" class="pay-form">
-            <select name="" id="" class="pay-form__select">
-                <option value=""selected hidden>選択してください</option>
-                <option value="">1.コンビニ支払</option>
-                <option value="">2.カード支払い</option>
+        <form action="/order" method="post" class="pay-form">
+            <select name="method" id="" class="pay-form__select">
+                <option selected hidden>選択してください</option>
+                <option value="コンビニ支払">1.コンビニ支払</option>
+                <option value="カード支払い">2.カード支払い</option>
             </select>
             <input type="submit" class="pay-form__submit" value="購入する">
         </form>
@@ -41,11 +41,11 @@
     <div class="bottum">
         <div class="bottum-header">
             <h2 class="buttum__title">配送先</h2>
-            <a href="" class="bottum__destination-link">変更する</a>
+            <a href="{{ route('item.address', ['item_id' => $item->id]) }}" class="bottum__destination-link">変更する</a>
         </div>
         <div class="bottom__destination">
-            <p class="bottom__destination--post_code">〒郵便番号</p>
-            <p class="bottom__destination--address">住所</p>
+            <p class="bottom__destination--post_code">〒{{$account->post_code}}</p>
+            <p class="bottom__destination--address">{{$account->address}}{{$account->building}}</p>
         </div>
     </div>
 </div>

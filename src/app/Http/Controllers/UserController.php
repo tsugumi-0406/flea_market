@@ -16,9 +16,33 @@ class UserController extends Controller
     // }
 
 
-    public function address()
+    public function address($item_id)
     {
-        return view('address');
+        // 商品データを取得
+        $item = Item::findOrFail($item_id);
+
+        // ログイン中ユーザー情報を取得
+        $user = Auth::user();
+
+        // ユーザーのアカウント情報を取得
+        $account = Account::where('user_id', $user->id)->first();
+
+        // ビューに $item と $account を渡す
+        return view('address', compact('item', 'account'));
+    }
+
+     // 商品購入の際の送付先の変更
+    public function updateAddress(Request $request, $item_id)
+    {
+        $item = Item::find($item_id);
+        // Accountsテーブルでユーザー情報を検索
+        $user = Auth::user();
+        $account = \App\Models\Account::where('user_id', $user->id)->first();
+        
+        $account->post_code = $request->input('post_code');
+        $account->address   = $request->input('address');
+        $account->building  = $request->input('building');
+        return view('purchase', compact('item', 'account'));
     }
 
     public function mypage(Request $request)
@@ -84,4 +108,6 @@ class UserController extends Controller
 
         return redirect('/mypage');
     }
+
+   
 }

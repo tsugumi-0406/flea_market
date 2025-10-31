@@ -19,4 +19,9 @@ class Item extends Model
     public function comments(){
             return $this->hasmany('App\Models\Comment');
     }
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
 }

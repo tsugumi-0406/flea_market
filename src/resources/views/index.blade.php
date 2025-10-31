@@ -14,7 +14,7 @@
 <div class="recomendation-list" id="tabContent01">
     @foreach($items as $item)
     <div class="item-card">
-        <a href="/item/{$item_id}" class="item-link">
+        <a href="{{ route('item.detail', ['item_id' => $item->id]) }}" class="item-link">
             <img src="{{ asset('storage/' . $item->image) }}" alt="商品画像" class="img-content" width=100%/>
             <p class="item-card__name">{{$item->name}}</p>
         </a>
@@ -27,10 +27,10 @@
 <div class="mylist-list" id="tabContent02">
     @foreach($items as $item)
     <div class="item-card">
-        <a href="/item/{$item_id}" class="item-link">
-            <img src="{{ asset('storage/' . $item->image) }}" alt="商品画像" class="img-content" width=100%/>
-            <p class="item-card__name">{{$item->name}}</p>
-        </a>
+        <a href="{{ route('item.detail', ['item_id' => $item->id]) }}" class="item-link">
+                <img src="{{ asset('storage/' . $item->image) }}" alt="商品画像" class="img-content" width=100%/>
+                <p class="item-card__name">{{$item->name}}</p>
+</a>
     </div>
     @endforeach
 </div>

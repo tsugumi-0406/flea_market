@@ -17,12 +17,12 @@ use App\Http\Controllers\ItemController;
 
 Route::get('/', [ItemController::class, 'index']);
 
-Route::get('/item/{item_id}', [ItemController::class, 'detail']);
+Route::get('/item/{item_id}', [ItemController::class, 'detail'])->name('item.detail');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/purchase/{item_id}', [ItemController::class, 'purchase']);
+    Route::get('/purchase/{item_id}', [ItemController::class, 'purchase'])->name('item.purchase');
 
-    Route::get('/purchase/address/{item_id}', [UserController::class, 'address']);
+    Route::get('/purchase/address/{item_id}', [UserController::class, 'address'])->name('item.address');
 
     Route::get('/sell', [ItemController::class, 'sell']);
 
@@ -33,4 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/listing', [ItemController::class, 'listing']);
 
     Route::post('/profile', [UserController::class, 'update']);
+
+    Route::post('/order', [ItemController::class, 'order']);
+
+    Route::post('/update/address/{item_id}', [UserController::class, 'updateAddress'])->name('item.updateAddress');
 });

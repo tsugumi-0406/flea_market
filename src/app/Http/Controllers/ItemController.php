@@ -8,6 +8,8 @@ use App\Models\Item;
 use App\Models\Like;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\Order;
+use App\Models\Account;
 
 
 class ItemController extends Controller
@@ -33,17 +35,32 @@ class ItemController extends Controller
         return view('index', compact('items', 'tab'));
     }
 
+    // 商品詳細画面の表示
     public function detail($item_id)
     {
         $item = Item::with('comments')->findOrFail($item_id);
         return view('detail', compact('item'));
     }
 
+    // 購入画面の表示
     public function purchase($item_id)
     {
         $item = Item::find($item_id);
-        return view('purchase', compact('item'));
+        // Accountsテーブルでユーザー情報を検索
+        $user = Auth::user();
+        $account = \App\Models\Account::where('user_id', $user->id)->first();
+        return view('purchase', compact('item', 'account'));
     }
+
+    // 購入
+    public function order(Request $request)
+    {
+        $order = $request->all();
+        Order::create($order);
+        return redirect('/');
+    }
+
+
 
     public function sell()
     {
