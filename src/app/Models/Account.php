@@ -12,7 +12,12 @@ class Account extends Model
     protected $fillable = ['user_id', 'name', 'post_code', 'address', 'building', 'image'];
 
     public function items()
-{
+    {
     return $this->hasMany(Item::class);
-}
+    }
+
+    public function orders()
+    {
+    return $this->hasMany(Order::class);
+    }
 }

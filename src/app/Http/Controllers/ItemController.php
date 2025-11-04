@@ -10,6 +10,8 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Order;
 use App\Models\Account;
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
 
 
 class ItemController extends Controller
@@ -55,13 +57,47 @@ class ItemController extends Controller
     // 購入
     public function order(Request $request)
     {
-        $order = $request->all();
-        Order::create($order);
+        $user = Auth::user();
+        $account = \App\Models\Account::where('user_id', $user->id)->first();
+
+        Order::create([
+        'item_id'    => $request->item_id,
+        'account_id' => $account->id,
+        'method'     => 'stripe',
+        'post_code' => $request->post_code,
+        'address' => $request->address,
+    ]);
         return redirect('/');
     }
 
+    public function checkout(Request $request)
+    {
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $YOUR_DOMAIN = 'http://localhost:4242';
+
+        $checkout_session = Session::create([
+        'line_items' => [[
+            'price_data' => [
+                'currency' => 'jpy',
+                'unit_amount' => $request->price * 100, // 例: 商品価格
+                'product_data' => [
+                    'name' => $request->item_name,       // 例: 商品名
+                ],
+            ],
+            'quantity' => 1,
+        ]],
+        'mode' => 'payment',
+        'success_url' => $YOUR_DOMAIN . '/success.html',
+        'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
+        ]);
+
+        return redirect($checkout_session->url);
+    }
 
 
+// 商品出品ページの表示
     public function sell()
     {
         $categories = Category::all();

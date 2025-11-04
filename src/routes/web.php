@@ -36,5 +36,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/order', [ItemController::class, 'order']);
 
+    Route::post('/checkout', [ItemController::class, 'checkout'])->name('checkout');
+
     Route::post('/update/address/{item_id}', [UserController::class, 'updateAddress'])->name('item.updateAddress');
 });

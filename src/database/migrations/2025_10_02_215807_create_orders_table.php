@@ -17,10 +17,9 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->foreignId('item_id');
             $table->foreignId('account_id');
-            $table->tinyInteger('method');
+            $table->string('method');
             $table->string('post_code');
             $table->string('address');
-            $table->string('building');
             $table->timestamps();
         });
     }

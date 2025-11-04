@@ -37,7 +37,6 @@
         <img src="{{ asset('storage/' . $item->image) }}" alt="商品画像" class="img-content" width=100%/>
         <p class="item-card__name">{{$item->name}}</p>
     </div>
-    購入した商品一覧
     @endforeach
 </div>
  @endauth

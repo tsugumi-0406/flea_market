@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
+use App\Models\Order;
 
 class UserController extends Controller
 {
@@ -31,6 +32,8 @@ class UserController extends Controller
         return view('address', compact('item', 'account'));
     }
 
+
+
      // 商品購入の際の送付先の変更
     public function updateAddress(Request $request, $item_id)
     {
@@ -45,24 +48,32 @@ class UserController extends Controller
         return view('purchase', compact('item', 'account'));
     }
 
+
+
+
     public function mypage(Request $request)
     {
          $page = $request->query('page', 'sell');
         switch ($page) {
             case 'buy':
-                // マイリストを取得（ログインしていない場合は空）
-                $items = auth()->check()
-                    ? auth()->user()->likes()->with('item')->get()->pluck('item')
-                    : collect();
-                break;
+                $user = Auth::user();
+                $account = \App\Models\Account::where('user_id', $user->id)->first();
+                $orders = Order::where('account_id', $account->id)->with('item')->get();
+                $items = $orders->pluck('item');
+            break;
 
             case 'sell':
             default:
-                $items = Item::all();
-                break;
+                $user = Auth::user();
+                $account = \App\Models\Account::where('user_id', $user->id)->first();
+
+                $items = Item::where('account_id', $account->id)->get();
+            break;
         }
         return view('mypage', compact('items', 'page'));
     }
+
+
 
     // プロフィール画面にアカウントテーブルにデータがあれば表示する
     public function profile()
@@ -84,6 +95,7 @@ class UserController extends Controller
         // 該当レコードがある場合のみ表示
         return view('profile', compact('account', 'user'));
     }
+
 
 
     public function update(Request $request)

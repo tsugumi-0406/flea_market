@@ -36,7 +36,16 @@
 }
 
 .pay-table__td{
-    border-bottom: solid 1px #000000;;
+    border-bottom: solid 1px #000000;
+    height: 140px;
+}
+
+.bl_selectCont {
+    display: none;
+}
+
+.bl_selectCont.is_active {
+    display: revert;
 }
 
 .pay-form{
@@ -82,3 +91,13 @@
     margin: auto auto 40px 100px;
     font-weight: 600;
 }
+
+.bottom__destination--post_code{
+    border: none;
+    font-weight: 600;
+}
+
+.bottom__destination--address{
+        border: none;
+        font-weight: 600;
+    }
