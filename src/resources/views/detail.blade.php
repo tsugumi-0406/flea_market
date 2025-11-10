@@ -16,7 +16,7 @@
 
 <p>いいねボタン</p>
 
-        <a href="" class="main-sentence__link-sell">購入手続きへ</a>
+        <a href="{{ route('item.purchase', ['item_id' => $item->id]) }}" class="main-sentence__link-sell">購入手続きへ</a>
         <h2 class="main-sentence_title">商品説明</h2>
         <p class="main-sentence__explanation-text">{{$item->description}}</p>
         <h2 class="main-sentence_title">商品の情報</h2>

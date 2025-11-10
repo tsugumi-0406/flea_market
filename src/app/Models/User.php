@@ -57,4 +57,9 @@ class User extends Authenticatable
     public function accounts(){
             return $this->hasone('App\Models\Account');
     }
+
+    public function likes()
+    {
+    return $this->hasMany(\App\Models\Like::class);
+    }
 }
