@@ -19,6 +19,8 @@ Route::get('/', [ItemController::class, 'index']);
 
 Route::get('/item/{item_id}', [ItemController::class, 'detail'])->name('item.detail');
 
+Route::get('/search', [ItemController::class, 'search']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/purchase/{item_id}', [ItemController::class, 'purchase'])->name('item.purchase');
 
@@ -36,7 +38,15 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/order', [ItemController::class, 'order']);
 
-    Route::post('/checkout', [ItemController::class, 'checkout'])->name('checkout');
+    Route::post('/checkout/session', [ItemController::class, 'createCheckoutSession'])->name('checkout.session');
+
+    Route::get('/payment/success', function () {
+    return '決済完了しました';
+})->name('payment.success');
+
+Route::get('/payment/cancel', function () {
+    return '決済がキャンセルされました';
+})->name('payment.cancel');
 
     Route::post('/update/address/{item_id}', [UserController::class, 'updateAddress'])->name('item.updateAddress');
 });

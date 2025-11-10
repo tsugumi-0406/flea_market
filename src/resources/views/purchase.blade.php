@@ -2,8 +2,8 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/purchase.css') }}">
-<link rel="stylesheet" href="style.css">
-<script src="https://js.stripe.com/clover/stripe.js"></script>
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<script src="https://js.stripe.com/v3/"></script>
 @endsection
 
 @section('content')
@@ -45,7 +45,7 @@
 
     <form action="/order" method="post" class="pay-form">
     @csrf
-        <div class="    ">
+        <div>
             <div class="center">
                 <h2 class="center__title">支払方法</h2>
                 <input type="hidden" name="item_id" value="{{ $item->id }}">
@@ -67,29 +67,59 @@
                 </div>
             </div>
         </div>
-        <input type="submit" class="pay-form__submit" value="購入する">
+        <button type="button" class="pay-form__submit" id="js-submit-btn">購入する</button>
     </form>
 </div>
 
 {{-- ▼スクリプトは最後にまとめて配置 --}}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+
     const selectToggle = document.getElementById('js_selectToggle');
     const selectContainers = document.querySelectorAll('.bl_selectCont');
+    const form = document.querySelector('.pay-form');
+    const submitBtn = document.getElementById('js-submit-btn');
 
-    // 初期状態では全て非表示
-    selectContainers.forEach(cont => cont.classList.remove('is_active'));
+    console.log("stripe key:", "{{ config('services.stripe.key') }}");
+console.log("checkout url:", "{{ route('checkout.session') }}");
+console.log("submit btn:", submitBtn);
 
-    if (selectToggle) {
-        selectToggle.value = "";
-        selectToggle.addEventListener('change', () => {
-            const toggleVal = selectToggle.value;
-            selectContainers.forEach(selectCont => {
-                const isActive = selectCont.id === toggleVal;
-                selectCont.classList.toggle('is_active', isActive);
+    // Stripe公開キー
+    const stripe = Stripe("{{ config('services.stripe.key') }}");
+    const createCheckoutUrl = "{{ route('checkout.session') }}";
+
+    submitBtn.addEventListener('click', async () => {
+
+        const method = selectToggle.value;
+
+        if (method === "2") {
+            // カード支払い → Stripe Checkout
+            const itemId = document.querySelector('input[name="item_id"]').value;
+
+            const response = await fetch(createCheckoutUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                },
+                body: JSON.stringify({ item_id: itemId }),
             });
-        });
-    }
+
+            const session = await response.json();
+
+            await stripe.redirectToCheckout({
+                sessionId: session.id,
+            });
+
+        } else if (method === "1") {
+            // コンビニ支払い → 普通に送信
+            form.submit();
+
+        } else {
+            alert("支払い方法を選択してください");
+        }
+    });
 });
 </script>
+
 @endsection

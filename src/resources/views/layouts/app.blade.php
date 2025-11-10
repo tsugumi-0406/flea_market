@@ -13,8 +13,8 @@
 <body>
     <header class="header">
         <img src="{{ asset('storage/logo.svg') }}" alt="アプリロゴ" class="header__logo" width="30%">
-        <form action="" class="header-form">
-            <input type="text" class="header-form__text" placeholder="何をお探しですか？">
+        <form action="/search" method="get" class="header-form">
+            <input type="text" class="header-form__text" placeholder="何をお探しですか？" name="keyword">
         </form>
         @if (Auth::check())
             <form action="/logout" method="post">

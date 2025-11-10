@@ -19,22 +19,43 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $tab = $request->query('tab', 'recommendation'); // デフォルトは recommendation
+        $user = Auth::user();
 
         switch ($tab) {
             case 'mylist':
                 // マイリストを取得（ログインしていない場合は空）
                 $items = auth()->check()
-                    ? auth()->user()->likes()->with('item')->get()->pluck('item')
+                    ? auth()->user()->likes()->with('item.order')->get()->pluck('item')
                     : collect();
                 break;
 
             case 'recommendation':
             default:
-                $items = Item::all();
-                break;
+                if ($user) {
+                $account = \App\Models\Account::where('user_id', $user->id)->first();
+                $items = Item::with('order')
+                    ->where('account_id', '!=', $account->id) // ← idがログインしている人のもの以外を取得
+                    ->get();
+                } else {
+                    // 未ログインなら全件表示
+                    $items = Item::with('order')->get();
+                }
         }
 
         return view('index', compact('items', 'tab'));
+    }
+
+    // 商品検索機能
+    public function search(Request $request)
+    {
+        $items = Item::query()
+            ->KeywordSearch($request->keyword)->get();
+        $tab = 'recommendation';
+
+        return view('index', compact('items', 'tab'))
+            ->with([
+                'keyword' => $request->keyword,
+            ]);
     }
 
     // 商品詳細画面の表示
@@ -47,7 +68,7 @@ class ItemController extends Controller
     // 購入画面の表示
     public function purchase($item_id)
     {
-        $item = Item::find($item_id);
+        $item = Item::findOrFail($item_id);
         // Accountsテーブルでユーザー情報を検索
         $user = Auth::user();
         $account = \App\Models\Account::where('user_id', $user->id)->first();
@@ -70,33 +91,31 @@ class ItemController extends Controller
         return redirect('/');
     }
 
-    public function checkout(Request $request)
-    {
+    public function createCheckoutSession(Request $request)
+{
+    Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        Stripe::setApiKey(config('services.stripe.secret'));
+    $item = Item::find($request->item_id);
 
-        $YOUR_DOMAIN = 'http://localhost:4242';
-
-        $checkout_session = Session::create([
+    $session = Session::create([
+        'payment_method_types' => ['card'],
         'line_items' => [[
             'price_data' => [
                 'currency' => 'jpy',
-                'unit_amount' => $request->price * 100, // 例: 商品価格
                 'product_data' => [
-                    'name' => $request->item_name,       // 例: 商品名
+                    'name' => $item->name,
                 ],
+                'unit_amount' => $item->price * 100,
             ],
             'quantity' => 1,
         ]],
         'mode' => 'payment',
-        'success_url' => $YOUR_DOMAIN . '/success.html',
-        'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
-        ]);
+        'success_url' => route('payment.success'),
+        'cancel_url' => route('payment.cancel'),
+    ]);
 
-        return redirect($checkout_session->url);
-    }
-
-
+    return response()->json(['id' => $session->id]);
+}
 // 商品出品ページの表示
     public function sell()
     {
