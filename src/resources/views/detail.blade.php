@@ -44,6 +44,9 @@
         <h2 class="main-sentence_title">商品の情報</h2>
         <div class="main-sentence__category">
             <label for="" class="main-sentence__label">カテゴリー</label>
+                @foreach($item->categories as $category)
+                    <p>{{ $category->name }}</p>
+                @endforeach
         </div>
         <div class="main-sentence__condition">
             <label for="" class="main-sentence__label">商品の状態</label>

@@ -9,6 +9,8 @@ class Like extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['account_id', 'item_id'];
+
     public function account() {
     return $this->belongsTo(Account::class);
     }

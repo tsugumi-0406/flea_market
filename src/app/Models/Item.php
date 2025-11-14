@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    use HasFactory;
+    // use HasFactory;
 
     protected $fillable = ['image', 'condition', 'name', 'brand', 'description', 'price', 'account_id'];
 
@@ -40,5 +40,10 @@ class Item extends Model
 
     public function likes() {
         return $this->hasMany(Like::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'item_category', 'item_id', 'category_id');
     }
 }
