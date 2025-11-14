@@ -77,7 +77,7 @@ class ItemController extends Controller
     }
 
     // 購入
-    public function order(Request $request)
+    public function order(PurchaseRequest $request)
     {
         $user = Auth::user();
         $account = \App\Models\Account::where('user_id', $user->id)->first();
@@ -142,7 +142,7 @@ class ItemController extends Controller
     }
 
      // コメントを送信する
-    public function comment(Request $request)
+    public function comment(CommentRequest $request)
     {
         $user = Auth::user();
         $account = \App\Models\Account::where('user_id', $user->id)->first();

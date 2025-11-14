@@ -36,7 +36,7 @@ class UserController extends Controller
 
 
      // 商品購入の際の送付先の変更
-    public function updateAddress(Request $request, $item_id)
+    public function updateAddress(AdressRequest $request, $item_id)
     {
         $item = Item::find($item_id);
         // Accountsテーブルでユーザー情報を検索
