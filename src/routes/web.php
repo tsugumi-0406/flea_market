@@ -41,12 +41,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout/session', [ItemController::class, 'createCheckoutSession'])->name('checkout.session');
 
     Route::get('/payment/success', function () {
-    return '決済完了しました';
-})->name('payment.success');
+        return '決済完了しました';
+    })->name('payment.success');
 
-Route::get('/payment/cancel', function () {
-    return '決済がキャンセルされました';
-})->name('payment.cancel');
+    Route::get('/payment/cancel', function () {
+        return '決済がキャンセルされました';
+    })->name('payment.cancel');
 
-    Route::post('/update/address/{item_id}', [UserController::class, 'updateAddress'])->name('item.updateAddress');
+    Route::post('/comment', [ItemController::class, 'comment']);
+
+    Route::post('/items/{item_id}/like', [ItemController::class, 'like'])->name('like');
 });
+

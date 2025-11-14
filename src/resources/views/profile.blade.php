@@ -28,7 +28,7 @@
             </div>
             <label class="main-form__label">ユーザー名</label>
             @if (!empty($account) && !empty($account->image))
-                <input type="text" class="main-form__input" name="name" value="{{$account->name}}"">
+                <input type="text" class="main-form__input" name="name" value="{{$account->name}}">
             @else
                 <input type="text" class="main-form__input" name="name">
             @endif
