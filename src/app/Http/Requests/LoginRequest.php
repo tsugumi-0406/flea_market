@@ -26,7 +26,7 @@ use Illuminate\Validation\ValidationException;
         public function rules()
         {
             return [
-                'email' => ['required'],
+                'email' => ['required', 'email'],
                 'password' => ['required']
             ];
         }
@@ -35,6 +35,7 @@ use Illuminate\Validation\ValidationException;
         {
             return [
                 'email.required' => 'メールアドレスを入力してください',
+                'email.email' => 'メールアドレスはメール形式で入力してください',
                 'password.required' => 'パスワードを入力してください',
             ];
         }
