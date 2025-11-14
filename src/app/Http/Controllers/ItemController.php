@@ -61,7 +61,8 @@ class ItemController extends Controller
     // 商品詳細画面の表示
     public function detail($item_id)
     {
-        $item = Item::with('comments')->findOrFail($item_id);
+        $item = Item::with('comments.account')->findOrFail($item_id);
+        
         return view('detail', compact('item'));
     }
 
@@ -91,38 +92,38 @@ class ItemController extends Controller
         return redirect('/');
     }
 
-    public function createCheckoutSession(Request $request)
-{
-    Stripe::setApiKey(env('STRIPE_SECRET'));
+    // stripe決済に接続
+    public function checkout(Request $request)
+    {
+        Stripe::setApiKey(config('services.stripe.secret'));
 
-    $item = Item::find($request->item_id);
+        $item = Item::findOrFail($request->item_id);
 
-    $session = Session::create([
-        'payment_method_types' => ['card'],
-        'line_items' => [[
-            'price_data' => [
-                'currency' => 'jpy',
-                'product_data' => [
-                    'name' => $item->name,
+        $session = Session::create([
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'product_data' => ['name' => $item->name],
+                    'unit_amount' => $item->price * 100,
                 ],
-                'unit_amount' => $item->price * 100,
-            ],
-            'quantity' => 1,
-        ]],
-        'mode' => 'payment',
-        'success_url' => route('payment.success'),
-        'cancel_url' => route('payment.cancel'),
-    ]);
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => url('/success'),
+            'cancel_url' => url('/cancel'),
+        ]);
 
-    return response()->json(['id' => $session->id]);
-}
-// 商品出品ページの表示
+        return response()->json(['id' => $session->id]);
+    }
+
+    // 商品出品ページの表示
     public function sell()
     {
         $categories = Category::all();
         return view('sell', compact('categories'));
     }
 
+    // 商品を出品する
     public function listing(ExhibitionRequest $request)
     {
         $item = $request->all();
@@ -138,6 +139,56 @@ class ItemController extends Controller
 
         Item::create($item);
         return redirect('/');
+    }
+
+     // コメントを送信する
+    public function comment(Request $request)
+    {
+        $user = Auth::user();
+        $account = \App\Models\Account::where('user_id', $user->id)->first();
+
+        $comment['sentence'] = $request->sentence;
+        $comment['item_id'] = $request->item_id;
+        $comment['account_id'] = $account->id;
+
+        Comment::create($comment);
+
+        return redirect()->route('item.detail', ['item_id' => $request->item_id]);
+    }
+
+    // いいね機能
+    public function like(Item $item_id)
+    {
+        $user = Auth::user();
+        $account = \App\Models\Account::where('user_id', $user->id)->first();
+        $account_id = $account['id'];
+
+        // ログインユーザーがその投稿をいいねしているレコードを取得
+        $liked_item = $item_id->likes()->where('account_id', $account_id);
+
+        // 既に「いいね」しているか確認
+        if (!$liked_item->exists()) {
+
+            //「いいね」していない場合は，likesテーブルにレコードを追加
+            $like = new Like();
+            $like->account_id = $account_id;
+            $like->item_id = $item_id->id;
+            $like->save();
+        } else {
+            // 既に「いいね」をしていた場合は，likesテーブルからレコードを削除     
+            $liked_item->delete();
+        }
+
+        // いいねの数を取得
+        $likes_count = $item_id->likes->count();
+
+        
+        $param = [
+            'likes_count' => $likes_count, // いいねの数
+        ];
+
+        // フロントにいいねの数を返す
+        return response()->json($param);
     }
 }
 

@@ -37,4 +37,8 @@ class Item extends Model
     }
     return $query;
     }
+
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
 }

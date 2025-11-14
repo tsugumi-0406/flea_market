@@ -2,6 +2,9 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/detail.css') }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 @endsection
 
 @section('content')
@@ -13,8 +16,27 @@
         <h1 class="main-sentence__name">{{$item->name}}</h1>
         <p class="main-sentence__brand">{{$item->brand}}</p>
         <p class="main-sentence__price">¥{{$item->price}}(税込み)</p>
+<!--いいねボタンの作成 -->
 
-<p>いいねボタン</p>
+<div class="flex items-center gap-3">
+   
+    @auth
+        @php
+            $account = \App\Models\Account::where('user_id', Auth::id())->first();
+        @endphp
+        <!--その投稿がいいねしているか判定 -->
+
+         @if ($account && $account->likes()->where('item_id', $item->id)->exists())
+            <ion-icon name="heart" class="like-btn cursor-pointer text-pink-500" data-item-id="{{ $item->id }}"></ion-icon>
+        @else
+            <ion-icon name="heart-outline" class="like-btn cursor-pointer" data-item-id="{{ $item->id }}"></ion-icon>
+        @endif
+
+        <p class="count-num">{{ $item->likes->count() }}</p>
+    @endauth
+</div>
+<ion-icon name="chatbubble-outline"></ion-icon>
+<p>コメント数{{$item->comments->count()}}</p>
 
         <a href="{{ route('item.purchase', ['item_id' => $item->id]) }}" class="main-sentence__link-sell">購入手続きへ</a>
         <h2 class="main-sentence_title">商品説明</h2>
@@ -40,15 +62,21 @@
 
         <div class="comment">
             <p class="comment__title">コメント</p>
-            <p class="comment__sentence">
-                コメントがここに入る
-            </p>
+                @foreach($item->comments as $comment)
+                    <img src="{{ asset('storage/' . $comment->account->image) }}">
+                    <p>{{ $comment->account->name }}</p>
+                    <p class="comment__sentence">{{ $comment->sentence }}</p>
+                @endforeach
         </div>
-        <form action="" class="comment-form">
-            <label for="" class="comment-form__label">商品へのコメント</label>
-            <textarea name="" id="" class="comment-form__text"></textarea>
+
+        <form action="/comment" method="post" class="comment-form">
+        @csrf
+            <input type="hidden" name="item_id" value="{{ $item->id }}">
+            <label class="comment-form__label">商品へのコメント</label>
+            <textarea name="sentence" class="comment-form__text"></textarea>
             <input type="submit" value="コメントを送信する" class="comment-form__submit">
         </form>
     </div>
 </div>
+<script src="{{ asset('js/like.js') }}"></script>
 @endsection

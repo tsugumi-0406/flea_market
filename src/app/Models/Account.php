@@ -20,4 +20,8 @@ class Account extends Model
     {
     return $this->hasMany(Order::class);
     }
+
+    public function likes() {
+    return $this->hasMany(Like::class);
+    }
 }
