@@ -27,6 +27,7 @@
         <a class="header-link__mupage" href="/mypage">マイページ</a>
         <a class="header-link__sell" href="/sell">出品</a>
     </header>
+    
     <main>
         @yield('content')
     </main>

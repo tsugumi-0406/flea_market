@@ -5,6 +5,12 @@
     padding-left: 20px;
 }
 
+.header::before{
+    content: "";
+    display: block;
+  padding-top: 75%;
+}
+
 .header-form__text{
     height: 60px;
     width: 500px;

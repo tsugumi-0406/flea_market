@@ -61,7 +61,7 @@ class ItemController extends Controller
     // 商品詳細画面の表示
     public function detail($item_id)
     {
-        $item = Item::with('comments.account')->findOrFail($item_id);
+        $item = Item::with('comments.account.category')->findOrFail($item_id);
         
         return view('detail', compact('item'));
     }
