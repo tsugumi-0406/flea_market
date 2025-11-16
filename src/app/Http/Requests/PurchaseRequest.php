@@ -13,7 +13,7 @@ class PurchaseRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,18 @@ class PurchaseRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'method' => ['required'],
+            'post_code' => ['required'],
+            'address' => ['required'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'method.required' => '支払方法を選択してください',
+            'post_code.required' => '郵便番号を指定してください',
+            'address.required' => '住所を指定してください',
         ];
     }
 }

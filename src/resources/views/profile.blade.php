@@ -18,8 +18,8 @@
                         class="img-content" width="300px" height="300px">
                 @else
                     <img src="{{ asset('storage/noimage.png') }}" 
-                        alt="no image" 
                         class="img-content">
+                        <p class="noimage-cont">アイコン</p>
                 @endif
                 <input type="file" name="image" accept="image/*" hidden id="imageInput">
                 <button type="button" class="form__input-image" onclick="document.getElementById('imageInput').click();">
@@ -28,7 +28,7 @@
             </div>
             <label class="main-form__label">ユーザー名</label>
             @if (!empty($account) && !empty($account->image))
-                <input type="text" class="main-form__input" name="name" value="{{$account->name}}">
+                <input type="text" class="main-form__input" name="name" value="{{$account->name}}   ">
             @else
                 <input type="text" class="main-form__input" name="name">
             @endif

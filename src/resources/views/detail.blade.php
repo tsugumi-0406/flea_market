@@ -17,26 +17,28 @@
         <p class="main-sentence__brand">{{$item->brand}}</p>
         <p class="main-sentence__price">¥{{$item->price}}(税込み)</p>
 <!--いいねボタンの作成 -->
+<div class="main-sentence__count">
+    <div class="flex items-center gap-3"> 
+        @auth
+            @php
+                $account = \App\Models\Account::where('user_id', Auth::id())->first();
+            @endphp
+            <!--その投稿がいいねしているか判定 -->
 
-<div class="flex items-center gap-3">
-   
-    @auth
-        @php
-            $account = \App\Models\Account::where('user_id', Auth::id())->first();
-        @endphp
-        <!--その投稿がいいねしているか判定 -->
+            @if ($account && $account->likes()->where('item_id', $item->id)->exists())
+                <ion-icon name="heart" class="like-btn cursor-pointer text-pink-500" data-item-id="{{ $item->id }}"></ion-icon>
+            @else
+                <ion-icon name="heart" class="like-btn cursor-pointer" data-item-id="{{ $item->id }}"></ion-icon>
+            @endif
 
-         @if ($account && $account->likes()->where('item_id', $item->id)->exists())
-            <ion-icon name="heart" class="like-btn cursor-pointer text-pink-500" data-item-id="{{ $item->id }}"></ion-icon>
-        @else
-            <ion-icon name="heart-outline" class="like-btn cursor-pointer" data-item-id="{{ $item->id }}"></ion-icon>
-        @endif
-
-        <p class="count-num">{{ $item->likes->count() }}</p>
-    @endauth
+            <p class="count-num">{{ $item->likes->count() }}</p>
+        @endauth
+    </div>
+    <div class="comment-count">
+        <ion-icon name="chatbubble-outline"></ion-icon>
+        <p class="count-comment">{{$item->comments->count()}}</p>
+    </div>
 </div>
-<ion-icon name="chatbubble-outline"></ion-icon>
-<p>コメント数{{$item->comments->count()}}</p>
 
         <a href="{{ route('item.purchase', ['item_id' => $item->id]) }}" class="main-sentence__link-sell">購入手続きへ</a>
         <h2 class="main-sentence_title">商品説明</h2>
@@ -45,7 +47,7 @@
         <div class="main-sentence__category">
             <label for="" class="main-sentence__label">カテゴリー</label>
                 @foreach($item->categories as $category)
-                    <p>{{ $category->name }}</p>
+                    <p class="main-sebtebce__category-name">{{ $category->name }}</p>
                 @endforeach
         </div>
         <div class="main-sentence__condition">
@@ -66,8 +68,10 @@
         <div class="comment">
             <p class="comment__title">コメント</p>
                 @foreach($item->comments as $comment)
+                <div class="comment__userdata">
                     <img src="{{ asset('storage/' . $comment->account->image) }}">
-                    <p>{{ $comment->account->name }}</p>
+                    <p class="comment__user-name">{{ $comment->account->name }}</p>
+                </div>
                     <p class="comment__sentence">{{ $comment->sentence }}</p>
                 @endforeach
         </div>

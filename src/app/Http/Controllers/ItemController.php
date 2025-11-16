@@ -23,19 +23,30 @@ class ItemController extends Controller
 
         switch ($tab) {
             case 'mylist':
-                // マイリストを取得（ログインしていない場合は空）
-                $items = auth()->check()
-                    ? auth()->user()->likes()->with('item.order')->get()->pluck('item')
-                    : collect();
-                break;
+                if (auth()->check()) {
+                    $account = auth()->user()->account;
+                    $items = $account
+                        ? $account->likes()->with('item')->get()->pluck('item')
+                        : collect();
+                } else {
+                    // 未ログインの場合は空
+                    $items = collect();
+    }
+
+            break;
 
             case 'recommendation':
             default:
                 if ($user) {
                 $account = \App\Models\Account::where('user_id', $user->id)->first();
-                $items = Item::with('order')
-                    ->where('account_id', '!=', $account->id) // ← idがログインしている人のもの以外を取得
-                    ->get();
+                    if ($account) {
+                        $items = Item::with('order')
+                            ->where('account_id', '!=', $account->id)
+                            ->get();
+                    } else {
+                        // Account が無いなら fallback（エラー防止）
+                        $items = Item::with('order')->get();
+                    }
                 } else {
                     // 未ログインなら全件表示
                     $items = Item::with('order')->get();
@@ -61,7 +72,8 @@ class ItemController extends Controller
     // 商品詳細画面の表示
     public function detail($item_id)
     {
-        $item = Item::with('comments.account.category')->findOrFail($item_id);
+        $item = Item::with('comments.account')->findOrFail($item_id);
+        $category = Category::find($item_id);
         
         return view('detail', compact('item'));
     }

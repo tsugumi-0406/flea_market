@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Like extends Model
 {
-    use HasFactory;
-
+   
     protected $fillable = ['account_id', 'item_id'];
 
     public function account() {
@@ -16,6 +15,6 @@ class Like extends Model
     }
 
     public function item() {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Item::class, 'item_id');
     }
 }

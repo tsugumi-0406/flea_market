@@ -14,6 +14,8 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use App\Http\Requests\LoginRequest;
+use Laravel\Fortify\Contracts\RegisterResponse;
+use Laravel\Fortify\Contracts\LoginResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -22,7 +24,24 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // RegisterResponse を正しい方法で上書き
+        $this->app->singleton(RegisterResponse::class, function () {
+            return new class implements RegisterResponse {
+                public function toResponse($request)
+                {
+                    return redirect('/mypage/profile');
+                }
+            };
+        });
+
+        $this->app->singleton(LoginResponse::class, function () {
+            return new class implements LoginResponse {
+                public function toResponse($request)
+                {
+                    return redirect('/'); // ログイン後はトップへ
+                }
+            };
+        });
     }
 
     /**
@@ -38,8 +57,6 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::loginView(function () {
             return view('login');
         });
-
-        Fortify::redirects('register', '/mypage/profile');
 
         RateLimiter::for('login', function (Request $request) {
             $email = (string) $request->email;

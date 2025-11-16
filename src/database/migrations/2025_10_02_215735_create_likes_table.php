@@ -17,7 +17,8 @@ class CreateLikesTable extends Migration
             $table->id();
             $table->foreignId('account_id')->constrained();
             $table->foreignId('item_id')->constrained();
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 
