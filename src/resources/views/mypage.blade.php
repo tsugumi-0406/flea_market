@@ -6,8 +6,10 @@
 
 @section('content')
 <div class="mypage">
-    <p>アイコン</p>
-    <p class="mypage__user-name">ユーザー名</p>
+    <img src="{{ asset('storage/' . $account->image) }}" 
+                        alt="プロフィール画像" 
+                        class="mypage__image" width="100px" height="100px">
+    <p class="mypage__user-name">{{$account->name}}</p>
     <a href="/mypage/profile" class="mypage__link">プロフィールを編集</a>
 </div>
 
@@ -23,7 +25,6 @@
         <a href="/item/{$item_id}" class="item-link"></a>
         <img src="{{ asset('storage/' . $item->image) }}" alt="商品画像" class="img-content" width=100%/>
         <p class="item-card__name">{{$item->name}}</p>
-        出品した商品一覧
     </div>
     @endforeach
 </div>

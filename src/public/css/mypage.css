@@ -2,10 +2,15 @@
     display: flex;
 }
 
+.mypage__image{
+    border-radius: 50%;
+    margin: 100px 0px auto 300px;
+}
+
 .mypage__user-name{
     font-weight: 700;
     font-size: 35px;
-    margin: 120px auto auto 100px;
+    margin: 120px auto auto 50px;
 }
 
 .mypage__link {

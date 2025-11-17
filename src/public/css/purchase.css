@@ -65,10 +65,12 @@
     font-weight: 700;
     border: none;
     width: 550px;
+    height: 90px;
+    margin-top: 100px;
 }
 
 .bottum{
-    width: 50%;
+    width: 100%;
     border-bottom: solid 1px #000000;
     border-top: solid 1px #000000;
 }
@@ -79,10 +81,11 @@
 
 .bottum-header{
     display: flex;
+    justify-content: space-between;
 }
 
 .bottum__destination-link{
-    margin: 30px auto auto 550px;
+    margin: 30px auto auto 480px;
     color: #0073CC;
     text-decoration: none;
 }
@@ -90,6 +93,10 @@
 .bottom__destination{
     margin: auto auto 40px 100px;
     font-weight: 600;
+}
+
+.post_code{
+    display: flex;
 }
 
 .bottom__destination--post_code{

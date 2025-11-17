@@ -6,8 +6,8 @@
 
 @section('content')
 <div class="page-link">
-    <a href="/" class="tab-link {{ $tab === 'recommendation' ? 'active' : '' }}">おすすめ</a>
-    <a href="/?tab=mylist" class="tab-link {{ $tab === 'mylist' ? 'active' : '' }}">マイリスト</a>
+    <a href="/?tab=recommendation&keyword={{ request('keyword') }}" class="tab-link {{ $tab === 'recommendation' ? 'active' : '' }}">おすすめ</a>
+    <a href="/?tab=mylist&keyword={{ request('keyword') }}" class="tab-link {{ $tab === 'mylist' ? 'active' : '' }}">マイリスト</a>
 </div>
 
 @if($tab === 'recommendation')
