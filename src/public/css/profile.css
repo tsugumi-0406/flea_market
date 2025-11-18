@@ -14,7 +14,11 @@
 
 .img-content{
     border-radius: 50%;
+}
+
+.noimage-cont{
     background-color: gray;
+    border-radius: 50%;
 }
 
 .form__input-image{
@@ -64,4 +68,8 @@
     color: #0073CC;
     font-size: 20px;
     font-weight: 400;
+}
+
+.main-form__error{
+    color: red;
 }

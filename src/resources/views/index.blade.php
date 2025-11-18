@@ -6,8 +6,8 @@
 
 @section('content')
 <div class="page-link">
-    <a href="/" class="tab-link {{ $tab === 'recommendation' ? 'active' : '' }}">おすすめ</a>
-    <a href="/?tab=mylist" class="tab-link {{ $tab === 'mylist' ? 'active' : '' }}">マイリスト</a>
+    <a href="/?tab=recommendation&keyword={{ request('keyword') }}" class="tab-link {{ $tab === 'recommendation' ? 'active' : '' }}">おすすめ</a>
+    <a href="/?tab=mylist&keyword={{ request('keyword') }}" class="tab-link {{ $tab === 'mylist' ? 'active' : '' }}">マイリスト</a>
 </div>
 
 @if($tab === 'recommendation')
@@ -15,7 +15,6 @@
     @foreach($items as $item)
     <div class="item-card">
         <a href="{{ route('item.detail', ['item_id' => $item->id]) }}" class="item-link">
-            
             <img src="{{ asset('storage/' . $item->image) }}" alt="商品画像" class="img-content" width=100%/>
             <p class="item-card__name">{{$item->name}}</p>
             @if ($item->order)

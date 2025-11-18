@@ -8,17 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
 use App\Models\Order;
 use App\Models\Like;
+use App\Http\Requests\AddressRequest;
+use App\Http\Requests\ProfileRequest;
 
 class UserController extends Controller
 {
-
-    // public function register()
-    // {
-    //     return view('register');
-    // }
-
-
-    public function address($item_id)
+ public function address($item_id)
     {
         // 商品データを取得
         $item = Item::findOrFail($item_id);
@@ -36,10 +31,9 @@ class UserController extends Controller
 
 
      // 商品購入の際の送付先の変更
-    public function updateAddress(AdressRequest $request, $item_id)
+    public function updateAddress(AddressRequest $request, $item_id)
     {
         $item = Item::find($item_id);
-        // Accountsテーブルでユーザー情報を検索
         $user = Auth::user();
         $account = \App\Models\Account::where('user_id', $user->id)->first();
         
@@ -54,6 +48,11 @@ class UserController extends Controller
 
     public function mypage(Request $request)
     {
+        $user = Auth::user();
+
+        // Accountsテーブルでユーザー情報を検索
+        $account = \App\Models\Account::where('user_id', $user->id)->first();
+
          $page = $request->query('page', 'sell');
         switch ($page) {
             case 'buy':
@@ -71,7 +70,7 @@ class UserController extends Controller
                 $items = Item::where('account_id', $account->id)->get();
             break;
         }
-        return view('mypage', compact('items', 'page'));
+        return view('mypage', compact('items', 'page', 'account'));
     }
 
 
@@ -99,7 +98,7 @@ class UserController extends Controller
 
 
 
-    public function update(Request $request)
+    public function update(ProfileRequest $request)
     {
         $user = Auth::user();
 
@@ -111,12 +110,12 @@ class UserController extends Controller
         }
 
         // ✅ データが存在すれば更新、無ければ新規作成
-        if ($user->accounts) {
+        if ($user->account) {
             // 更新
-            $user->accounts->update($data);
+            $user->account->update($data);
         } else {
             // 新規作成（user_id自動で付与）
-            $user->accounts()->create($data);
+            $user->account()->create($data);
         }
 
         return redirect('/mypage');

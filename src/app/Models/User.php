@@ -21,9 +21,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'post_code',
-        'address',
-        'building',
     ];
 
     /**
@@ -45,21 +42,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function likedItems()
-    {
-        return $this->belongsToMany(Item::class, 'likes')->withTimestamps();
-    }
 
     public function comments(){
-            return $this->hasmany('App\Models\Comment');
+        return $this->hasmany('App\Models\Comment');
     }
 
-    public function accounts(){
-            return $this->hasone('App\Models\Account');
-    }
-
-    public function likes()
-    {
-    return $this->hasMany(\App\Models\Like::class);
+    public function account(){
+        return $this->hasOne(\App\Models\Account::class, 'user_id');
     }
 }

@@ -33,5 +33,8 @@ yarn-error.log
 !/docker/mysql/logs/.gitkeep
 !/docker/mysql/dump/.gitkeep
 
+src/.env.testing
+src/.env
+
 
 

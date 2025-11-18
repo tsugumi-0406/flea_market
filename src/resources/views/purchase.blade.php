@@ -45,15 +45,20 @@
 
     <form action="/order" method="post" class="pay-form">
     @csrf
-        <div>
+        <div class="select">
             <div class="center">
                 <h2 class="center__title">支払方法</h2>
                 <input type="hidden" name="item_id" value="{{ $item->id }}">
                 <select name="method" class="pay-form__select" id="js_selectToggle">
-                    <option selected hidden>選択してください</option>
+                    <option selected hidden value="">選択してください</option>
                     <option value="1">1. コンビニ支払</option>
                     <option value="2">2. カード支払い</option>
                 </select>
+                <div class="comment-form__Error">
+                @error('item_id')
+                    {{ $errors->first('item_id') }}
+                @enderror
+            </div>
             </div>
             <div class="bottum">
                 <div class="bottum-header">
@@ -61,10 +66,18 @@
                     <a href="{{ route('item.address', ['item_id' => $item->id]) }}" class="bottum__destination-link">変更する</a>
                 </div>
                 <div class="bottom__destination">
-                    <input type="text" readonly class="bottom__destination--post_code" name="post_code" value="{{ $account->post_code }}">
-                    <p>〒</p>
+                    <div class="post_code">
+                        <p>〒</p>
+                        <input type="text" readonly class="bottom__destination--post_code" name="post_code" value="{{ $account->post_code }}">
+                    </div>
                     <input type="text" readonly class="bottom__destination--address" name="address" value="{{ $account->address }}{{ $account->building }}">
                 </div>
+                @error('post_code')
+                    {{ $errors->first('post_code') }}
+                @enderror
+                @error('address')
+                    {{ $errors->first('address') }}
+                @enderror
             </div>
         </div>
         <button type="button" class="pay-form__submit" id="js-submit-btn">購入する</button>
@@ -73,16 +86,24 @@
 
 {{-- ▼スクリプトは最後にまとめて配置 --}}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     const selectToggle = document.getElementById('js_selectToggle');
     const selectContainers = document.querySelectorAll('.bl_selectCont');
     const form = document.querySelector('.pay-form');
     const submitBtn = document.getElementById('js-submit-btn');
 
-    console.log("stripe key:", "{{ config('services.stripe.key') }}");
-console.log("checkout url:", "{{ route('checkout.session') }}");
-console.log("submit btn:", submitBtn);
+    // 初期状態：全て非表示
+    selectContainers.forEach(c => c.style.display = 'none');
+
+    // 支払方法切り替え
+    selectToggle.addEventListener('change', function () {
+        const selectedValue = this.value;
+
+        selectContainers.forEach(container => {
+            container.style.display = (container.id === selectedValue) ? 'block' : 'none';
+        });
+    });
 
     // Stripe公開キー
     const stripe = Stripe("{{ config('services.stripe.key') }}");
@@ -112,7 +133,7 @@ console.log("submit btn:", submitBtn);
             });
 
         } else if (method === "1") {
-            // コンビニ支払い → 普通に送信
+            // コンビニ支払い → 通常決済
             form.submit();
 
         } else {
@@ -120,6 +141,8 @@ console.log("submit btn:", submitBtn);
         }
     });
 });
+
+
 </script>
 
 @endsection

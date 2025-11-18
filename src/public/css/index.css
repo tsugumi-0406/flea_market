@@ -24,9 +24,22 @@
     margin-top: 50px;
 }
 
+.mylist-list{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
 .item-card{
     width: 21%;
     margin: 30px 20px;
+}
+
+.item-link{
+    text-decoration: none;
+    color: black;
 }
 
 .sold-label{

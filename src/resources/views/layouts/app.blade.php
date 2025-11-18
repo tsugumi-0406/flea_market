@@ -14,7 +14,8 @@
     <header class="header">
         <img src="{{ asset('storage/logo.svg') }}" alt="アプリロゴ" class="header__logo" width="30%">
         <form action="/search" method="get" class="header-form">
-            <input type="text" class="header-form__text" placeholder="何をお探しですか？" name="keyword">
+            <input type="hidden" name="tab" value="{{ $tab ?? 'recommendation' }}">
+            <input type="text" class="header-form__text" placeholder="何をお探しですか？" name="keyword" value="{{ request('keyword') }}">
         </form>
         @if (Auth::check())
             <form action="/logout" method="post">

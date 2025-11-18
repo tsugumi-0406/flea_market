@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/purchase/address/{item_id}', [UserController::class, 'address'])->name('item.address');
 
+    Route::post('/update/address/{item_id}', [UserController::class, 'updateAddress'])->name('item.updateAddress');
+
     Route::get('/sell', [ItemController::class, 'sell']);
 
     Route::get('/mypage', [UserController::class, 'mypage']);
@@ -38,7 +40,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/order', [ItemController::class, 'order']);
 
-    Route::post('/checkout/session', [ItemController::class, 'createCheckoutSession'])->name('checkout.session');
+    Route::post('/checkout/session', [ItemController::class, 'checkout'])->name('checkout.session');
 
     Route::get('/payment/success', function () {
         return '決済完了しました';

@@ -12,40 +12,14 @@ use App\Models\Order;
 use App\Models\Account;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
+use App\Http\Requests\CommentRequest;
+use App\Http\Requests\PurchaseRequest;
+use App\Http\Requests\ExhibitionRequest;
 
 
 class ItemController extends Controller
 {
-    public function index(Request $request)
-    {
-        $tab = $request->query('tab', 'recommendation'); // デフォルトは recommendation
-        $user = Auth::user();
-
-        switch ($tab) {
-            case 'mylist':
-                // マイリストを取得（ログインしていない場合は空）
-                $items = auth()->check()
-                    ? auth()->user()->likes()->with('item.order')->get()->pluck('item')
-                    : collect();
-                break;
-
-            case 'recommendation':
-            default:
-                if ($user) {
-                $account = \App\Models\Account::where('user_id', $user->id)->first();
-                $items = Item::with('order')
-                    ->where('account_id', '!=', $account->id) // ← idがログインしている人のもの以外を取得
-                    ->get();
-                } else {
-                    // 未ログインなら全件表示
-                    $items = Item::with('order')->get();
-                }
-        }
-
-        return view('index', compact('items', 'tab'));
-    }
-
-    // 商品検索機能
+       // 商品検索機能
     public function search(Request $request)
     {
         $items = Item::query()
@@ -58,10 +32,65 @@ class ItemController extends Controller
             ]);
     }
 
+    public function index(Request $request)
+{
+    $tab = $request->query('tab', 'recommendation');
+    $keyword = $request->keyword;
+    $user = Auth::user();
+
+    switch ($tab) {
+
+        case 'mylist':
+            if (!auth()->check()) {
+                $items = collect();
+                break;
+            }
+
+            $account = $user->account;
+
+            if ($account) {
+                // マイリスト内を keyword で検索
+                $items = $account->likes()
+                    ->with(['item' => function($q) use ($keyword){
+                        if ($keyword) {
+                            $q->KeywordSearch($keyword);
+                        }
+                    }])
+                    ->get()
+                    ->pluck('item')
+                    ->filter(); // null除去
+            } else {
+                $items = collect();
+            }
+
+            break;
+
+        case 'recommendation':
+        default:
+            $query = Item::with('order');
+
+            if ($keyword) {
+                $query->KeywordSearch($keyword);
+            }
+
+            if ($user && $user->account) {
+                $query->where('account_id', '!=', $user->account->id);
+            }
+
+            $items = $query->get();
+    }
+
+    return view('index', compact('items', 'tab'))
+            ->with('keyword', $keyword);
+}
+
+ 
     // 商品詳細画面の表示
     public function detail($item_id)
     {
-        $item = Item::with('comments.account.category')->findOrFail($item_id);
+        $item = Item::with('comments.account', 'likes')->findOrFail($item_id);
+        $category = Category::find($item_id);
+        $likes_count = $item->likes->count();
         
         return view('detail', compact('item'));
     }
