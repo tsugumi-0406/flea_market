@@ -28,4 +28,52 @@ class LoginTest extends TestCase
             'email' => 'メールアドレスを入力してください',
         ]);
     }
+
+    public function test_login_password_required_validation()
+    {
+        $response = $this->get('/login');
+        $response->assertStatus(200);
+
+        $response = $this->from('/login')->post('/login', [
+            'email' => 'bbb@ccc.com',
+            'password' => '',
+        ]);
+
+        $response->assertSessionHasErrors([
+            'password' => 'パスワードを入力してください',
+        ]);
+    }
+
+    public function test_login_user_data_error_validation()
+    {
+        $response = $this->get('/login');
+        $response->assertStatus(200);
+
+        $response = $this->from('/login')->post('/login', [
+            'email' => 'aaa@gmail.com',
+            'password' => 'test1234',
+        ]);
+
+        $response->assertSessionHasErrors([
+            'email' => 'ログイン情報が登録されていません',
+        ]);
+    }
+
+    public function test_login_success()
+    {
+        $user = \App\Models\User::factory()->create([
+        'email' => 'test@example.com',
+        'password' => bcrypt('test12345'),
+    ]);
+
+        $response = $this->get('/login');
+        $response->assertStatus(200);
+
+        $response = $this->from('/login')->post('/login', [
+            'email' => 'test@example.com',
+            'password' => 'test12345',
+        ]);
+
+        $this->assertAuthenticatedAs($user);    
+    }
 }
