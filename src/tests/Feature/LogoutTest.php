@@ -13,6 +13,8 @@ class LogoutTest extends TestCase
      *
      * @return void
      */
+
+    // ログアウトができる
     public function test_logout_success()
     {
         $user = \App\Models\User::factory()->create([

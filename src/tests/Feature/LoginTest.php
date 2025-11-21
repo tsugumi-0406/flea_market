@@ -13,6 +13,8 @@ class LoginTest extends TestCase
      *
      * @return void
      */
+
+    // メールアドレスが入力されていない場合、バリデーションメッセージが表示される
     public function test_login_email_required_validation()
     {
         $response = $this->get('/login');
@@ -29,6 +31,7 @@ class LoginTest extends TestCase
         ]);
     }
 
+    // パスワードが入力されていない場合、バリデーションメッセージが表示される
     public function test_login_password_required_validation()
     {
         $response = $this->get('/login');
@@ -44,6 +47,7 @@ class LoginTest extends TestCase
         ]);
     }
 
+    // 入力情報が間違っている場合、バリデーションメッセージが表示される
     public function test_login_user_data_error_validation()
     {
         $response = $this->get('/login');
@@ -59,6 +63,7 @@ class LoginTest extends TestCase
         ]);
     }
 
+    // 正しい情報が入力された場合、ログイン処理が実行される
     public function test_login_success()
     {
         $user = \App\Models\User::factory()->create([
