@@ -16,6 +16,7 @@ class RegisterTest extends TestCase
 
     use RefreshDatabase;
 
+    // 名前が入力されていない場合、バリデーションメッセージが表示される
     public function test_register_name_required_validation()
     {
         $response = $this->get('/register');
@@ -31,10 +32,9 @@ class RegisterTest extends TestCase
         $response->assertSessionHasErrors([
             'name' => 'お名前を入力してください',
         ]);
-
-        //$response->assertRedirect('/register');
     }
 
+    // メールアドレスが入力されていない場合、バリデーションメッセージが表示される
     public function test_register_email_required_validation()
     {
         $response = $this->get('/register');
@@ -52,6 +52,7 @@ class RegisterTest extends TestCase
         ]);
     }
 
+    // パスワードが入力されていない場合、バリデーションメッセージが表示される
     public function test_register_password_required_validation()
     {
         $response = $this->get('/register');
@@ -69,6 +70,7 @@ class RegisterTest extends TestCase
         ]);
     }
 
+    // パスワードが7文字以下の場合、バリデーションメッセージが表示される
     public function test_register_password_min_validation()
     {
         $response = $this->get('/register');
@@ -86,6 +88,7 @@ class RegisterTest extends TestCase
         ]);
     }
 
+    // パスワードが確認用パスワードと一致しない場合、バリデーションメッセージが表示される
     public function test_register_password_confirmed_validation()
     {
         $response = $this->get('/register');
@@ -103,6 +106,7 @@ class RegisterTest extends TestCase
         ]);
     }
 
+    // 全ての項目が入力されている場合、会員情報が登録され、プロフィール設定画面に遷移される
     public function test_register_success_redirects_to_profile()
     {
         $response = $this->get('/register');

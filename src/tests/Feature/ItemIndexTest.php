@@ -14,6 +14,8 @@ class ItemIndexTest extends TestCase
      *
      * @return void
      */
+
+    // 全商品を取得できる
     public function test_view_index_all_item()
     {
         $items = \App\Models\Item::factory()->count(3)->create();
@@ -26,6 +28,7 @@ class ItemIndexTest extends TestCase
         }
     }
 
+    // 購入済み商品は「Sold」と表示される
     public function test_view_index_sold_label()
     {
         $item = \App\Models\Item::factory()->create();
@@ -42,6 +45,7 @@ class ItemIndexTest extends TestCase
         }
     }
 
+    // 自分が出品した商品は表示されない
     public function test_hide_item_sell_user()
     {
         $user = \App\Models\User::factory()->create([
@@ -63,7 +67,6 @@ class ItemIndexTest extends TestCase
         $response = $this->get('/');
     $response->assertStatus(200);
 
-    // 自分の商品は非表示になる
     $response->assertDontSee('test_item');
     }
 }
