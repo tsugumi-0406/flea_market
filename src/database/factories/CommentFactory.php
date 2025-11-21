@@ -15,7 +15,7 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'sentence' => $this->faker->sentence(),
+            'sentence' => $this->faker->realText(),
             'item_id' => $this->faker->numberBetween(1,10),
             'account_id' => $this->faker->numberBetween(1,3),
         ];

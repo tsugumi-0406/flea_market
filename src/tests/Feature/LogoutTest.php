@@ -13,10 +13,23 @@ class LogoutTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_logout_success()
     {
-        $response = $this->get('/');
+        $user = \App\Models\User::factory()->create([
+        'email' => 'test@example.com',
+        'password' => bcrypt('test12345'),
+    ]);
 
+        $response = $this->get('/login');
         $response->assertStatus(200);
+
+        $response = $this->from('/login')->post('/login', [
+            'email' => 'test@example.com',
+            'password' => 'test12345',
+        ]);
+
+        $response = $this->post('/logout'); 
+
+        $this->assertguest();
     }
 }
