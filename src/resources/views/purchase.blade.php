@@ -114,7 +114,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const method = selectToggle.value;
 
         if (method === "2") {
-            // カード支払い → Stripe Checkout
             const itemId = document.querySelector('input[name="item_id"]').value;
 
             const response = await fetch(createCheckoutUrl, {
@@ -133,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
         } else if (method === "1") {
-            // コンビニ支払い → 通常決済
             form.submit();
 
         } else {

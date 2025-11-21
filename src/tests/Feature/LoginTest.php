@@ -64,7 +64,7 @@ class LoginTest extends TestCase
         $user = \App\Models\User::factory()->create([
         'email' => 'test@example.com',
         'password' => bcrypt('test12345'),
-    ]);
+        ]);
 
         $response = $this->get('/login');
         $response->assertStatus(200);

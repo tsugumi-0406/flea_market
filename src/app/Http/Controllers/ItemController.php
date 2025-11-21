@@ -33,56 +33,56 @@ class ItemController extends Controller
     }
 
     public function index(Request $request)
-{
-    $tab = $request->query('tab', 'recommendation');
-    $keyword = $request->keyword;
-    $user = Auth::user();
+    {
+        $tab = $request->query('tab', 'recommendation');
+        $keyword = $request->keyword;
+        $user = Auth::user();
 
-    switch ($tab) {
+        switch ($tab) {
 
-        case 'mylist':
-            if (!auth()->check()) {
-                $items = collect();
+            case 'mylist':
+                if (!auth()->check()) {
+                    $items = collect();
+                    break;
+                }
+
+                $account = $user->account;
+
+                if ($account) {
+                    // マイリスト内を keyword で検索
+                    $items = $account->likes()
+                        ->with(['item' => function($q) use ($keyword){
+                            if ($keyword) {
+                                $q->KeywordSearch($keyword);
+                            }
+                        }])
+                        ->get()
+                        ->pluck('item')
+                        ->filter(); // null除去
+                } else {
+                    $items = collect();
+                }
+
                 break;
-            }
 
-            $account = $user->account;
+            case 'recommendation':
+            default:
+                $query = Item::with('order');
 
-            if ($account) {
-                // マイリスト内を keyword で検索
-                $items = $account->likes()
-                    ->with(['item' => function($q) use ($keyword){
-                        if ($keyword) {
-                            $q->KeywordSearch($keyword);
-                        }
-                    }])
-                    ->get()
-                    ->pluck('item')
-                    ->filter(); // null除去
-            } else {
-                $items = collect();
-            }
+                if ($keyword) {
+                    $query->KeywordSearch($keyword);
+                }
 
-            break;
+                if ($user && $user->account) {
+                    $query->where('account_id', '!=', $user->account->id);
+                }
 
-        case 'recommendation':
-        default:
-            $query = Item::with('order');
+                $items = $query->get();
+        }
 
-            if ($keyword) {
-                $query->KeywordSearch($keyword);
-            }
-
-            if ($user && $user->account) {
-                $query->where('account_id', '!=', $user->account->id);
-            }
-
-            $items = $query->get();
+        return view('index', compact('items', 'tab'))
+                ->with('keyword', $keyword);
     }
-
-    return view('index', compact('items', 'tab'))
-            ->with('keyword', $keyword);
-}
 
  
     // 商品詳細画面の表示
