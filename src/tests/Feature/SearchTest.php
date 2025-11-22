@@ -8,15 +8,44 @@ use Tests\TestCase;
 
 class SearchTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function test_example()
+
+    // 「商品名」で部分一致検索ができる
+    public function test_search_item_view_index()
     {
-        $response = $this->get('/');
+        $item = \App\Models\Item::factory()->create([
+            'name' => 'keyword'
+        ]);
+
+        $response = $this->get('/search?keyword=key');
 
         $response->assertStatus(200);
+
+        $response->assertSee('keyword');
+    }
+
+    // 「商品名」で部分一致検索ができる
+    public function test_search_item_view_mylist()
+    {
+        $item = \App\Models\Item::factory()->create([
+            'name' => 'keyword'
+        ]);
+
+        $response = $this->get('/search?keyword=key');
+
+        $response->assertStatus(200);
+
+        $response->assertSee('keyword');
+
+        $response = $this->get('/?tab=mylist');
+
+        $response->assertStatus(200);
+
+        $response->assertSee('keyword');
     }
 }
