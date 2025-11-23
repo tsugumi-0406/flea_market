@@ -12,7 +12,7 @@
 
     <body>
         <header class="header">
-            <img src="{{ asset('storage/logo.svg') }}" alt="アプリロゴ" class="header__logo" width="30%">
+            <img src="{{ asset('storage/logo.svg') }}" alt="アプリロゴ" class="header__logo">
         </header>
         <main>
             <div class="main-inner">
