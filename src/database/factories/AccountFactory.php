@@ -16,7 +16,7 @@ class AccountFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => null,
+            'user_id' => \App\Models\User::factory(),
             'image' => 'noimage.png',
             'name' => $this->faker->name(),
             'post_code' => $this->faker->postcode(),

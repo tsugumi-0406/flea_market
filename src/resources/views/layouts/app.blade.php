@@ -12,7 +12,7 @@
 
 <body>
     <header class="header">
-        <img src="{{ asset('storage/logo.svg') }}" alt="アプリロゴ" class="header__logo" width="30%">
+        <img src="{{ asset('storage/logo.svg') }}" alt="アプリロゴ" class="header__logo">
         <form action="/search" method="get" class="header-form">
             <input type="hidden" name="tab" value="{{ $tab ?? 'recommendation' }}">
             <input type="text" class="header-form__text" placeholder="何をお探しですか？" name="keyword" value="{{ request('keyword') }}">

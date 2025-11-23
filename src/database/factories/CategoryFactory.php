@@ -1,13 +1,11 @@
 <?php
 
 namespace Database\Factories;
+use App\Models\Category;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Comment;
-use App\Models\Account;
-use App\Models\Item;
 
-class CommentFactory extends Factory
+class CategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +15,7 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'sentence' => $this->faker->realText(),
-            'item_id' => Item::factory(),
-            'account_id' => Account::factory(),
+            'name' => $this->faker->word,
         ];
     }
 }
