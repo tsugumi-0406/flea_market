@@ -34,7 +34,7 @@
             @endphp
 
             @if ($isLiked)
-                <ion-icon name="heart" class="like-btn cursor-pointer text-pink-500" data-item-id="{{ $item->id }}"></ion-icon>
+                <ion-icon name="heart" class="like-btn cursor-pointer text-red-500" data-item-id="{{ $item->id }}"></ion-icon>
             @else
                 <ion-icon name="heart-outline" class="like-btn cursor-pointer" data-item-id="{{ $item->id }}"></ion-icon>
             @endif
