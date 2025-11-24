@@ -112,12 +112,12 @@ class ItemController extends Controller
         $account = \App\Models\Account::where('user_id', $user->id)->first();
 
         Order::create([
-        'item_id'    => $request->item_id,
-        'account_id' => $account->id,
-        'method'     => 'stripe',
-        'post_code' => $request->post_code,
-        'address' => $request->address,
-    ]);
+            'item_id'    => $request->item_id,
+            'account_id' => $account->id,
+            'method'     => 'stripe',
+            'post_code' => $request->post_code,
+            'address' => $request->address,
+        ]);
         return redirect('/');
     }
 
@@ -192,31 +192,24 @@ class ItemController extends Controller
         $account = \App\Models\Account::where('user_id', $user->id)->first();
         $account_id = $account['id'];
 
-        // ログインユーザーがその投稿をいいねしているレコードを取得
         $liked_item = $item_id->likes()->where('account_id', $account_id);
 
-        // 既に「いいね」しているか確認
         if (!$liked_item->exists()) {
 
-            //「いいね」していない場合は，likesテーブルにレコードを追加
             $like = new Like();
             $like->account_id = $account_id;
             $like->item_id = $item_id->id;
             $like->save();
-        } else {
-            // 既に「いいね」をしていた場合は，likesテーブルからレコードを削除     
+        } else {    
             $liked_item->delete();
         }
 
-        // いいねの数を取得
         $likes_count = $item_id->likes->count();
 
-        
         $param = [
             'likes_count' => $likes_count, // いいねの数
         ];
 
-        // フロントにいいねの数を返す
         return response()->json($param);
     }
 }

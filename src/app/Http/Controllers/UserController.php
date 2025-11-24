@@ -13,18 +13,14 @@ use App\Http\Requests\ProfileRequest;
 
 class UserController extends Controller
 {
- public function address($item_id)
+    public function address($item_id)
     {
-        // 商品データを取得
         $item = Item::findOrFail($item_id);
 
-        // ログイン中ユーザー情報を取得
         $user = Auth::user();
 
-        // ユーザーのアカウント情報を取得
         $account = Account::where('user_id', $user->id)->first();
 
-        // ビューに $item と $account を渡す
         return view('address', compact('item', 'account'));
     }
 
@@ -40,7 +36,9 @@ class UserController extends Controller
         $account->post_code = $request->input('post_code');
         $account->address   = $request->input('address');
         $account->building  = $request->input('building');
-        return view('purchase', compact('item', 'account'));
+        $account->save();
+        
+        return redirect('/purchase/' . $item_id);
     }
 
 
