@@ -156,7 +156,9 @@ class ItemController extends Controller
     public function listing(ExhibitionRequest $request)
     {
         $item = $request->all();
-        $item['account_id'] = Auth::id();
+        
+        $account = \App\Models\Account::where('user_id', Auth::id())->first();
+        $item['account_id'] = $account->id;
 
         $item['image'] = 'noimage.png';
 
