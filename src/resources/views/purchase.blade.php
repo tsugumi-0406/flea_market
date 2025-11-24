@@ -35,7 +35,7 @@
                     </div>
                     <div class="bl_selectCont" id="2">
                         <div class="bl_selectCont_body">
-                            <p>カード支払い。</p>
+                            <p>カード支払い</p>
                         </div>
                     </div>
                 </td>
@@ -51,7 +51,7 @@
                 <input type="hidden" name="item_id" value="{{ $item->id }}">
                 <select name="method" class="pay-form__select" id="js_selectToggle">
                     <option selected hidden value="">選択してください</option>
-                    <option value="1">1. コンビニ支払</option>
+                    <option value="1">1. コンビニ支払い</option>
                     <option value="2">2. カード支払い</option>
                 </select>
                 <div class="comment-form__Error">
