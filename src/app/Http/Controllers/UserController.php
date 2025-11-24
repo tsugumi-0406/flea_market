@@ -13,7 +13,7 @@ use App\Http\Requests\ProfileRequest;
 
 class UserController extends Controller
 {
- public function address($item_id)
+    public function address($item_id)
     {
         $item = Item::findOrFail($item_id);
 
@@ -36,7 +36,9 @@ class UserController extends Controller
         $account->post_code = $request->input('post_code');
         $account->address   = $request->input('address');
         $account->building  = $request->input('building');
-        return view('purchase', compact('item', 'account'));
+        $account->save();
+        
+        return redirect('/purchase/' . $item_id);
     }
 
 

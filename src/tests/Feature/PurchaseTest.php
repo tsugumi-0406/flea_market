@@ -30,14 +30,14 @@ class PurchaseTest extends TestCase
 
         $item = \App\Models\Item::factory()->create();
 
-        $response = $this->get('/purchase/address/' . $item->id);
+        $response = $this->get('/purchase/' . $item->id);
         $response->assertStatus(200);
 
         $response = $this->post('/order', [
             'item_id' => $item->id,
             'account_id' => $account->id,
             'method' => 1,
-            'post_code' => 123-4567,
+            'post_code' => '123-4567',
             'address' => 'テスト'
         ]);
 
@@ -62,7 +62,7 @@ class PurchaseTest extends TestCase
 
         $item = \App\Models\Item::factory()->create();
 
-        $response = $this->get('/purchase/address/' . $item->id);
+        $response = $this->get('/purchase/' . $item->id);
         $response->assertStatus(200);
 
         $response = $this->post('/order', [
@@ -95,7 +95,7 @@ class PurchaseTest extends TestCase
 
         $item = \App\Models\Item::factory()->create();
 
-        $response = $this->get('/purchase/address/' . $item->id);
+        $response = $this->get('/purchase/' . $item->id);
         $response->assertStatus(200);
 
         $response = $this->post('/order', [

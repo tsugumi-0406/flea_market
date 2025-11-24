@@ -112,12 +112,12 @@ class ItemController extends Controller
         $account = \App\Models\Account::where('user_id', $user->id)->first();
 
         Order::create([
-        'item_id'    => $request->item_id,
-        'account_id' => $account->id,
-        'method'     => 'stripe',
-        'post_code' => $request->post_code,
-        'address' => $request->address,
-    ]);
+            'item_id'    => $request->item_id,
+            'account_id' => $account->id,
+            'method'     => 'stripe',
+            'post_code' => $request->post_code,
+            'address' => $request->address,
+        ]);
         return redirect('/');
     }
 
