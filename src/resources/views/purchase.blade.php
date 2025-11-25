@@ -25,7 +25,7 @@
                 <td class="pay-table__td">¥{{ $item->price }}</td>
             </tr>
             <tr>
-                <td>支払方法</td>
+                <td class="pay-table__td">支払方法</td>
                 <td>
                     {{-- ▼選択に応じて切り替わる表示ブロック --}}
                     <div class="bl_selectCont" id="1">

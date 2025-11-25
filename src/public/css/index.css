@@ -32,9 +32,21 @@
     margin-top: 50px;
 }
 
+@media (max-width: 768px) {
+    .main-inner {
+        width: 95%;
+    }
+}
+
 .item-card{
     width: 21%;
     margin: 30px 20px;
+}
+
+@media (max-width: 768px) {
+    .item-card {
+        width: 15%;
+    }
 }
 
 .item-link{

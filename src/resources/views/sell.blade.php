@@ -77,8 +77,10 @@
                 @enderror
                 </div>
                 <label for="" class="main-form__label"> 販売価格</label>
-                <span class="yen-mark">¥</span>
-                <input type="text" class="main-form__input-price" name="price">
+                <div class="price-wrap">
+                    <span class="yen-mark">¥</span>
+                    <input type="text" class="main-form__input-price" name="price">
+                </div>
                 <div class="main-form__error">
                 @error('price')
                     {{ $errors->first('price') }}

@@ -87,7 +87,7 @@
             <p class="comment__title">コメント({{$item->comments->count()}})</p>
                 @foreach($item->comments as $comment)
                 <div class="comment__userdata">
-                    <img src="{{ asset('storage/' . $comment->account->image) }}">
+                    <img class="userdata__image" src="{{ asset('storage/' . $comment->account->image) }}">
                     <p class="comment__user-name">{{ $comment->account->name }}</p>
                 </div>
                     <p class="comment__sentence">{{ $comment->sentence }}</p>
