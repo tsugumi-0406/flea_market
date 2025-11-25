@@ -27,11 +27,12 @@
 
 .top-content__detail-name{
     margin: 0px auto 0px 0px;
+    white-space: nowrap;
 }
 
 .pay-table{
     border: solid 1px #000000;
-    width: 550px;
+    width: 40%;
     text-align: center;
 }
 
@@ -64,9 +65,13 @@
     font-size: 35px;
     font-weight: 700;
     border: none;
-    width: 550px;
+    width: 40%;
     height: 90px;
     margin-top: 100px;
+}
+
+.select{
+    width: 100%;
 }
 
 .bottum{
@@ -77,6 +82,7 @@
 
 .buttum__title{
     margin-left: 20px;
+    white-space: nowrap;
 }
 
 .bottum-header{
@@ -88,6 +94,7 @@
     margin: 30px auto auto 480px;
     color: #0073CC;
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .bottom__destination{
@@ -105,6 +112,95 @@
 }
 
 .bottom__destination--address{
-        border: none;
-        font-weight: 600;
+    border: none;
+    font-weight: 600;
+}
+
+/* タブレット以下：横並びをやめて縦積みにする */
+@media (max-width: 900px) {
+
+    .main-inner {
+        width: 95%;
+        margin: 40px auto;
     }
+
+    /* 上部エリアを縦並びに */
+    .top {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .top-content {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        font-size: 20px;
+    }
+
+    .top-content__image {
+        width: 35%;
+        margin-right: 20px;
+    }
+
+    /* 文字がはみ出すようなら折り返しOKに */
+    .top-content__detail-name {
+        white-space: normal;
+    }
+
+    /* 支払いテーブルは全幅 */
+    .pay-table {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    /* 支払い方法フォームを縦並びに */
+    .pay-form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pay-form__select {
+        margin: 20px 0;
+    }
+
+    .pay-form__submit {
+        width: 100%;
+        font-size: 24px;
+        height: 70px;
+        margin-top: 30px;
+    }
+
+    /* 下の青帯エリアのレイアウト調整 */
+    .bottum-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .bottum__destination-link {
+        margin: 10px 0 0 20px;
+        /* 480px 固定をやめる */
+    }
+
+    .bottom__destination {
+        margin: 10px 0 20px 20px;
+        /* 100px 固定をやめる */
+    }
+}
+
+/* スマホ：さらに少し詰める */
+@media (max-width: 600px) {
+    .top-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .top-content__image {
+        width: 60%;
+        margin: 0 0 15px 0;
+    }
+}
+
+
+    

@@ -56,3 +56,8 @@
     padding: 5px 10px;
     border-radius: 5px;
 }
+
+.header-button__logout{
+    background-color: #000000;
+    border: none;
+}

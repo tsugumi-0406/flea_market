@@ -114,6 +114,11 @@
     display: flex;  
 }
 
+.userdata__image{
+    width: 30%;
+    height: auto;
+}
+
 .comment__user-name{
     font-size: 30px;
     font-weight: 700;

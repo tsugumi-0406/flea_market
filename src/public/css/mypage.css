@@ -1,16 +1,35 @@
 .mypage{
     display: flex;
+    flex-wrap: nowrap;       /* ← 折り返さない */
+    gap: 20px;
+    align-items: center;
+    width: 70%;
+    justify-content: space-between;
+    margin: auto;
+}
+
+@media (max-width: 768px) {
+    .mypage {
+        width: 100%;
+    }
+}
+
+.mypage-inner{
+    display: flex;
+    width: 40%;
+    justify-content: space-between;
 }
 
 .mypage__image{
     border-radius: 50%;
-    margin: 100px 0px auto 300px;
+    width: 80px;
+    height: auto;
+    flex-shrink: 0;
 }
 
 .mypage__user-name{
     font-weight: 700;
     font-size: 35px;
-    margin: 120px auto auto 50px;
 }
 
 .mypage__link {
@@ -21,7 +40,6 @@
     font-size: 25px;
     font-weight: 700;
     text-decoration: none;
-    margin: 120px 200px auto auto;
 }
 
 .page-link__group {
