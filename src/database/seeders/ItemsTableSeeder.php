@@ -28,10 +28,8 @@ class ItemsTableSeeder extends Seeder
 
         $category1 = Category::where('name', 'ファッション')->first();
         $category2 = Category::where('name', 'アクセサリー')->first();
-
         $item->categories()->attach([$category1->id, $category2->id]);
             
-
         $item = Item::create([
             'image' => 'item_image/HDD+Hard+Disk.jpg',
             'condition' => 2,
@@ -43,9 +41,7 @@ class ItemsTableSeeder extends Seeder
         ]);
 
         $category1 = Category::where('name', '家電')->first();
-
         $item->categories()->attach([$category1->id]);
-
 
         $item = Item::create([
             'image' => 'item_image/iLoveIMG+d.jpg',
@@ -58,9 +54,7 @@ class ItemsTableSeeder extends Seeder
         ]);
 
         $category1 = Category::where('name', 'キッチン')->first();
-
         $item->categories()->attach([$category1->id]);
-
 
         $item = Item::create([
             'image' => 'item_image/Leather+Shoes+Product+Photo.jpg',
@@ -74,9 +68,7 @@ class ItemsTableSeeder extends Seeder
 
         $category1 = Category::where('name', 'ファッション')->first();
         $category2 = Category::where('name', 'メンズ')->first();
-
         $item->categories()->attach([$category1->id, $category2->id]);
-
 
         $item = Item::create([
             'image' => 'item_image/Living+Room+Laptop.jpg',
@@ -89,9 +81,7 @@ class ItemsTableSeeder extends Seeder
         ]);
 
         $category1 = Category::where('name', '家電')->first();
-
         $item->categories()->attach([$category1->id]);
-
 
         $item = Item::create([
             'image' => 'item_image/Music+Mic+4632231.jpg',
@@ -104,9 +94,7 @@ class ItemsTableSeeder extends Seeder
         ]);
 
         $category1 = Category::where('name', '家電')->first();
-
         $item->categories()->attach([$category1->id]);
-
 
         $item = Item::create([
             'image' => 'item_image/Purse+fashion+pocket.jpg',
@@ -120,11 +108,8 @@ class ItemsTableSeeder extends Seeder
 
         $category1 = Category::where('name', 'ファッション')->first();
         $category2 = Category::where('name', 'レディース')->first();
-
         $item->categories()->attach([$category1->id, $category2->id]);
-        
-
-
+    
         $item = Item::create([
             'image' => 'item_image/Tumbler+souvenir.jpg',
             'condition' => 4,
@@ -136,9 +121,7 @@ class ItemsTableSeeder extends Seeder
         ]);
 
         $category1 = Category::where('name', 'キッチン')->first();
-
         $item->categories()->attach([$category1->id]);
-
 
         $item = Item::create([
             'image' => 'item_image/Waitress+with+Coffee+Grinder.jpg',
@@ -151,9 +134,7 @@ class ItemsTableSeeder extends Seeder
         ]);
 
         $category1 = Category::where('name', 'キッチン')->first();
-
         $item->categories()->attach([$category1->id]);
-
 
         $item = Item::create([
             'image' => 'item_image/外出メイクアップセット.jpg',
@@ -166,7 +147,6 @@ class ItemsTableSeeder extends Seeder
         ]);
 
         $category1 = Category::where('name', 'コスメ')->first();
-
         $item->categories()->attach([$category1->id]);
     }
 }

@@ -14,8 +14,9 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use App\Http\Requests\LoginRequest;
-use Laravel\Fortify\Contracts\RegisterResponse;
 use Laravel\Fortify\Contracts\LoginResponse;
+use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
+use App\Http\Responses\RegisterResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -24,21 +25,20 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // RegisterResponse を正しい方法で上書き
-        $this->app->singleton(RegisterResponse::class, function () {
-            return new class implements RegisterResponse {
-                public function toResponse($request)
-                {
-                    return redirect('/mypage/profile');
-                }
-            };
-        });
+        // $this->app->singleton(RegisterResponse::class, function () {
+        //     return new class implements RegisterResponse {
+        //         public function toResponse($request)
+        //         {
+        //             return redirect('/mypage/profile');
+        //         }
+        //     };   
+        // });
 
         $this->app->singleton(LoginResponse::class, function () {
             return new class implements LoginResponse {
                 public function toResponse($request)
                 {
-                    return redirect('/'); // ログイン後はトップへ
+                    return redirect('/');
                 }
             };
         });
@@ -64,5 +64,11 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
+
+        Fortify::verifyEmailView(function () {
+            return view('auth.verify-email');
+        });
+
+        $this->app->singleton(RegisterResponseContract::class, RegisterResponse::class);
     }
 }

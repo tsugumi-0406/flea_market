@@ -16,15 +16,11 @@ class UserController extends Controller
     public function address($item_id)
     {
         $item = Item::findOrFail($item_id);
-
         $user = Auth::user();
-
         $account = Account::where('user_id', $user->id)->first();
 
         return view('address', compact('item', 'account'));
     }
-
-
 
      // 商品購入の際の送付先の変更
     public function updateAddress(AddressRequest $request, $item_id)
@@ -32,7 +28,6 @@ class UserController extends Controller
         $item = Item::find($item_id);
         $user = Auth::user();
         $account = \App\Models\Account::where('user_id', $user->id)->first();
-        
         $account->post_code = $request->input('post_code');
         $account->address   = $request->input('address');
         $account->building  = $request->input('building');
@@ -41,17 +36,11 @@ class UserController extends Controller
         return redirect('/purchase/' . $item_id);
     }
 
-
-
-
     public function mypage(Request $request)
     {
         $user = Auth::user();
-
-        // Accountsテーブルでユーザー情報を検索
         $account = \App\Models\Account::where('user_id', $user->id)->first();
-
-         $page = $request->query('page', 'sell');
+        $page = $request->query('page', 'sell');
         switch ($page) {
             case 'buy':
                 $user = Auth::user();
@@ -64,59 +53,40 @@ class UserController extends Controller
             default:
                 $user = Auth::user();
                 $account = \App\Models\Account::where('user_id', $user->id)->first();
-
                 $items = Item::where('account_id', $account->id)->get();
             break;
         }
         return view('mypage', compact('items', 'page', 'account'));
     }
 
-
-
     // プロフィール画面にアカウントテーブルにデータがあれば表示する
     public function profile()
     {
         $user = Auth::user();
-
-        // Accountsテーブルでユーザー情報を検索
         $account = \App\Models\Account::where('user_id', $user->id)->first();
-
-        // データがなければ何も表示しない（ビューを分岐）
         if (!$account) {
-            // 例1: 空画面を返す
             return view('profile', ['account' => null]);
-
-            // 例2: 別ページにリダイレクトしたい場合
-            // return redirect('/mypage')->with('warning', '登録情報がありません');
         }
 
-        // 該当レコードがある場合のみ表示
         return view('profile', compact('account', 'user'));
     }
-
-
 
     public function update(ProfileRequest $request)
     {
         $user = Auth::user();
-
         $data = $request->only(['name', 'post_code', 'address', 'building', 'image']);
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('account_image', 'public');
             $data['image'] = $path;
         }
-
-        // ✅ データが存在すれば更新、無ければ新規作成
         if ($user->account) {
-            // 更新
             $user->account->update($data);
         } else {
-            // 新規作成（user_id自動で付与）
             $user->account()->create($data);
         }
 
-        return redirect('/mypage');
+        return redirect('/');
     }
 
    

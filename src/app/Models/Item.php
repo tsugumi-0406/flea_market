@@ -32,10 +32,10 @@ class Item extends Model
 
     public function scopeKeywordSearch($query, $keyword)
     {
-    if (!empty($keyword)) {
-        $query->where('name', 'like', '%' . $keyword . '%');
-    }
-    return $query;
+        if (!empty($keyword)) {
+            $query->where('name', 'like', '%' . $keyword . '%');
+        }
+        return $query;
     }
 
     public function likes() {

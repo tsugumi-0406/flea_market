@@ -12,7 +12,7 @@ class Like extends Model
     protected $fillable = ['account_id', 'item_id'];
 
     public function account() {
-    return $this->belongsTo(Account::class);
+        return $this->belongsTo(Account::class);
     }
 
     public function item() {

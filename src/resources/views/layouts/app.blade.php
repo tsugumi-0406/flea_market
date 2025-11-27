@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -25,12 +26,13 @@
         @else
             <a class="header-link__login" href="/login">ログイン</a>
         @endif
-        <a class="header-link__mupage" href="/mypage">マイページ</a>
-        <a class="header-link__sell" href="/sell">出品</a>
+            <a class="header-link__mupage" href="/mypage">マイページ</a>
+            <a class="header-link__sell" href="/sell">出品</a>
     </header>
     
     <main>
         @yield('content')
     </main>
 </body>
+
 </html>
