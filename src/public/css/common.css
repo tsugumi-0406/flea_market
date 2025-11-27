@@ -19,7 +19,6 @@
     }
 }
 
-/* スマホ（600px以下） */
 @media (max-width: 600px) {
     .header__logo {
         width: 130px;
@@ -49,7 +48,6 @@
     white-space: nowrap;
 }
 
-/* 出品ボタンだけ白背景 */
 .header-link__sell {
     background-color: #FFFFFF;
     color: #000;

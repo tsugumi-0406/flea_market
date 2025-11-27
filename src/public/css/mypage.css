@@ -1,6 +1,6 @@
 .mypage{
     display: flex;
-    flex-wrap: nowrap;       /* ← 折り返さない */
+    flex-wrap: nowrap;
     gap: 20px;
     align-items: center;
     width: 70%;

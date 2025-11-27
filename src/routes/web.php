@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +23,20 @@ Route::get('/item/{item_id}', [ItemController::class, 'detail'])->name('item.det
 
 Route::get('/search', [ItemController::class, 'search']);
 
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/mypage/profile');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', '認証メールを再送しました！');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
 Route::middleware('auth')->group(function () {
     Route::get('/purchase/{item_id}', [ItemController::class, 'purchase'])->name('item.purchase');
 
@@ -32,7 +48,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/mypage', [UserController::class, 'mypage']);
 
-    Route::get('/mypage/profile', [UserController::class, 'profile']);
+    Route::get('/mypage/profile', [UserController::class, 'profile'])
+    ->middleware(['auth', 'verified']);
 
     Route::post('/listing', [ItemController::class, 'listing']);
 

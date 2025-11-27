@@ -11,7 +11,7 @@ class Order extends Model
     protected $fillable = ['item_id', 'account_id', 'method', 'post_code', 'address', 'building'];
 
     public function item()
-{
-    return $this->belongsTo(Item::class);
-}
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

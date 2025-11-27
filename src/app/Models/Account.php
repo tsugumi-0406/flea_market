@@ -13,12 +13,12 @@ class Account extends Model
 
     public function items()
     {
-    return $this->hasMany(Item::class);
+        return $this->hasMany(Item::class);
     }
 
     public function orders()
     {
-    return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class);
     }
 
     public function likes() {

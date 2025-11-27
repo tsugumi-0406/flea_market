@@ -116,7 +116,6 @@
     font-weight: 600;
 }
 
-/* タブレット以下：横並びをやめて縦積みにする */
 @media (max-width: 900px) {
 
     .main-inner {
@@ -124,7 +123,6 @@
         margin: 40px auto;
     }
 
-    /* 上部エリアを縦並びに */
     .top {
         flex-direction: column;
         align-items: center;
@@ -180,16 +178,13 @@
 
     .bottum__destination-link {
         margin: 10px 0 0 20px;
-        /* 480px 固定をやめる */
     }
 
     .bottom__destination {
         margin: 10px 0 20px 20px;
-        /* 100px 固定をやめる */
     }
 }
 
-/* スマホ：さらに少し詰める */
 @media (max-width: 600px) {
     .top-content {
         flex-direction: column;

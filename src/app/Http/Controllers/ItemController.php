@@ -19,7 +19,7 @@ use App\Http\Requests\ExhibitionRequest;
 
 class ItemController extends Controller
 {
-       // 商品検索機能
+    // 商品検索機能
     public function search(Request $request)
     {
         $items = Item::query()
@@ -39,7 +39,6 @@ class ItemController extends Controller
         $user = Auth::user();
 
         switch ($tab) {
-
             case 'mylist':
                 if (!auth()->check()) {
                     $items = collect();
@@ -49,7 +48,6 @@ class ItemController extends Controller
                 $account = $user->account;
 
                 if ($account) {
-                    // マイリスト内を keyword で検索
                     $items = $account->likes()
                         ->with(['item' => function($q) use ($keyword){
                             if ($keyword) {
@@ -58,13 +56,11 @@ class ItemController extends Controller
                         }])
                         ->get()
                         ->pluck('item')
-                        ->filter(); // null除去
+                        ->filter();
                 } else {
                     $items = collect();
                 }
-
                 break;
-
             case 'recommendation':
             default:
                 $query = Item::with('order');
@@ -99,7 +95,6 @@ class ItemController extends Controller
     public function purchase($item_id)
     {
         $item = Item::findOrFail($item_id);
-        // Accountsテーブルでユーザー情報を検索
         $user = Auth::user();
         $account = \App\Models\Account::where('user_id', $user->id)->first();
         return view('purchase', compact('item', 'account'));
@@ -141,7 +136,6 @@ class ItemController extends Controller
             'success_url' => url('/success'),
             'cancel_url' => url('/cancel'),
         ]);
-
         return response()->json(['id' => $session->id]);
     }
 
@@ -156,12 +150,9 @@ class ItemController extends Controller
     public function listing(ExhibitionRequest $request)
     {
         $item = $request->all();
-        
         $account = \App\Models\Account::where('user_id', Auth::id())->first();
         $item['account_id'] = $account->id;
-
         $item['image'] = 'noimage.png';
-
 
          if ($request->hasFile('image')) {
             $path = $request->file('image')->store('item_image', 'public');
@@ -177,7 +168,6 @@ class ItemController extends Controller
     {
         $user = Auth::user();
         $account = \App\Models\Account::where('user_id', $user->id)->first();
-
         $comment['sentence'] = $request->sentence;
         $comment['item_id'] = $request->item_id;
         $comment['account_id'] = $account->id;
@@ -193,11 +183,9 @@ class ItemController extends Controller
         $user = Auth::user();
         $account = \App\Models\Account::where('user_id', $user->id)->first();
         $account_id = $account['id'];
-
         $liked_item = $item_id->likes()->where('account_id', $account_id);
 
         if (!$liked_item->exists()) {
-
             $like = new Like();
             $like->account_id = $account_id;
             $like->item_id = $item_id->id;
@@ -209,9 +197,8 @@ class ItemController extends Controller
         $likes_count = $item_id->likes->count();
 
         $param = [
-            'likes_count' => $likes_count, // いいねの数
+            'likes_count' => $likes_count,
         ];
-
         return response()->json($param);
     }
 }
