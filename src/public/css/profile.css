@@ -30,6 +30,9 @@
 .noimage-cont{
     background-color: gray;
     border-radius: 50%;
+    color: gray;
+    width: 150px;
+    height: 150px;
 }
 
 .form__input-image{

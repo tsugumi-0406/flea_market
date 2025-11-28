@@ -149,17 +149,23 @@ class ItemController extends Controller
     // 商品を出品する
     public function listing(ExhibitionRequest $request)
     {
-        $item = $request->all();
-        $account = \App\Models\Account::where('user_id', Auth::id())->first();
-        $item['account_id'] = $account->id;
-        $item['image'] = 'noimage.png';
+        $itemData = $request->all();
 
-         if ($request->hasFile('image')) {
+        $account = \App\Models\Account::where('user_id', Auth::id())->first();
+        $itemData['account_id'] = $account->id;
+        $itemData['image'] = 'noimage.png';
+
+        if ($request->hasFile('image')) {
             $path = $request->file('image')->store('item_image', 'public');
-            $item['image'] = $path;
+            $itemData['image'] = $path;
         }
 
-        Item::create($item);
+        $item = Item::create($itemData);
+
+        if ($request->has('category_id')) {
+            $item->categories()->attach($request->category_id);
+        }
+
         return redirect('/');
     }
 

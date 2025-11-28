@@ -1,41 +1,34 @@
-// 非同期でいいね機能を実装
-
-// 全てのいいねボタン(ハートアイコン)の要素を取得
 const likeBtns = document.querySelectorAll(".like-btn");
 
 likeBtns.forEach((likeBtn) => {
-    // どれかのいいねボタンがクリックされた時の処理
     likeBtn.addEventListener("click", async (e) => {
-        // クリックされたいいねボタンのid(item id)を取得
-        const item_id = e.target.dataset.itemId;
-        // /items/{iitem_id}/likeにPOSTリクエストを送信
+        const icon = e.currentTarget; 
+
+        const item_id = icon.dataset.itemId;
+
         await fetch(`/items/${item_id}/like`, {
-            method: "POST", // リクエストメソッドはPOST
+            method: "POST",
             headers: {
-                //Content-Typeでサーバーに送るデータの種類を伝える。今回はapplication/json
                 "Content-Type": "application/json",
-                //csrfトークンを付与
                 "X-CSRF-TOKEN": document
                     .querySelector('meta[name="csrf-token"]')
                     .getAttribute("content"),
             },
         })
-            .then((res) => res.json()) // レスポンスをJSON形式に変換;
+            .then((res) => res.json())
             .then((data) => {
-                // いいねの数を更新
-                e.target.nextElementSibling.innerHTML = data.likes_count;
+                // いいね数更新
+                icon.nextElementSibling.innerHTML = data.likes_count;
 
-                // いいねの状態によってハートアイコンの色を変更
-                if (e.target.classList.contains("text-pink-500")) {
-                    e.target.classList.remove("text-pink-500");
-                    e.target.setAttribute("name", "heart-outline");
+                // アイコン即反映
+                if (icon.classList.contains("text-red-500")) {
+                    icon.classList.remove("text-red-500");
+                    icon.setAttribute("name", "heart-outline");
                 } else {
-                    e.target.classList.add("text-pink-500");
-                    e.target.setAttribute("name", "heart");
+                    icon.classList.add("text-red-500");
+                    icon.setAttribute("name", "heart");
                 }
             })
-            // 失敗した場合はアラートを表示
             .catch(() => alert("いいね処理が失敗しました"));
     });
 });
-
