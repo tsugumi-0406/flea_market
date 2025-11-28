@@ -18,14 +18,14 @@ Laravel 環境構築
  
 ## URL
 ・開発環境 : http://localhost/<br>
-・ユーザー登録 : http://localhost/register
+・ユーザー登録 : http://localhost/register<br>
 ・phpMyAdmin : http://localhost:8080/ 
 
 ## 使用技術
 ・PHP 8.1  
 ・Laravel 8.83.29  
 ・MySQL 8.0.26 
-・nginx:1.21.1
+・nginx:1.21.1   
 
 
 ## ER図
