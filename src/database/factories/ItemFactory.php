@@ -18,7 +18,7 @@ class ItemFactory extends Factory
         return [
             'image' => 'noimage.png',
             'condition' => $this->faker->numberBetween(1, 4),
-            'name' => $this->faker->name()->word,
+            'name' => $this->faker->word,
             'brand' => $this->faker->company(),
             'description' => $this->faker->realText(),
             'price' =>  $this->faker->randomNumber(),

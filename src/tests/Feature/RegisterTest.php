@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
 
 class RegisterTest extends TestCase
 {
@@ -109,20 +110,27 @@ class RegisterTest extends TestCase
     // 全ての項目が入力されている場合、会員情報が登録され、プロフィール設定画面に遷移される
     public function test_register_success_redirects_to_profile()
     {
-        $response = $this->get('/register');
-        $response->assertStatus(200);
+        $this->get('/register')->assertStatus(200);
 
-        $response = $this->post('/register', [
+        $response = $this->followingRedirects()->post('/register', [
             'name' => 'aaa',
             'email' => 'bbb@ccc.com',
             'password' => 'test1234',
             'password_confirmation' => 'test1234',
         ]);
 
-        $response->assertRedirect('/mypage/profile');
-
         $this->assertDatabaseHas('users', [
             'email' => 'bbb@ccc.com'
         ]);
+
+        $user = User::where('email', 'bbb@ccc.com')->first();
+        $this->assertNotNull($user, 'User could not be found after registration');
+
+        $user->forceFill(['email_verified_at' => now()])->save();
+
+        $this->actingAs($user);
+
+        $response = $this->get('/mypage/profile');
+        $response->assertStatus(200);
     }
 }

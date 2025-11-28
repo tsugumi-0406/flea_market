@@ -48,15 +48,15 @@
                 <div class="center">
                     <h2 class="center__title">支払方法</h2>
                     <input type="hidden" name="item_id" value="{{ $item->id }}">
-                    <select name="method" class="pay-form__select" id="js_selectToggle">
+                    <select name="method" class="pay-form__select" id="js_selectToggle" novalidate>
                         <option selected hidden value="">選択してください</option>
                         <option value="1">1. コンビニ支払い</option>
                         <option value="2">2. カード支払い</option>
                     </select>
                     <span class="pay-form__select__triangle">▼</span>
                     <div class="comment-form__Error">
-                        @error('item_id')
-                            {{ $errors->first('item_id') }}
+                        @error('method')
+                            {{ $errors->first('method') }}
                         @enderror
                     </div>
                 </div>

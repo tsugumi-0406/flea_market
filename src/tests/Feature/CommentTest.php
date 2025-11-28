@@ -123,7 +123,7 @@ class CommentTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors([
-            'sentence' => 'コメントは225文字以内で入力してください',
+            'sentence' => 'コメントは255文字以内で入力してください',
         ]);
     }
 }
