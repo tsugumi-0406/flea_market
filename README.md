@@ -29,4 +29,5 @@ Laravel 環境構築
 
 
 ## ER図
-![alt text](image.png)
+![ER図](index.drawio.png)
+
