@@ -35,6 +35,7 @@
     width: 100%;
     padding-left: 20px;
     font-size: 18px;
+    border-radius: 5px;
 }
 
 .header-button__logout,

@@ -17,8 +17,10 @@
 
     <main>
         <div class="main-sentence">
-            <p class="main-sente__text">登録されたメールアドレスに確認メールを送付しました。</p>
-            <p class="main-sente__text">メール内のリンクをクリックして認証を完了してください。</p>
+            <p class="main-sente__text">
+                登録されたメールアドレスに確認メールを送付しました。
+                <br>メール認証を完了してください。</br>
+            </p>
             <button class="main-form__button" onclick="window.open('http://localhost:8025', '_blank')">認証はこちらから</button>
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf

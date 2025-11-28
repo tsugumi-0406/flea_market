@@ -10,7 +10,8 @@
 .main-form__button{
     font-weight: 700;
     margin: 30px auto;
-    padding: 5px 30px;
+    padding: 10px 20px;
+    border-radius: 5px;
 }
 
 .main-sentence__link{

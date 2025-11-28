@@ -48,6 +48,7 @@
                     <option value="3" class="main-form__condition-option">やや傷や汚れあり</option>
                     <option value="4" class="main-form__condition-option">状態が悪い</option>
                 </select>
+                <span class="select__triangle">▼</span>
                 <div class="main-form__error">
                     @error('condition')
                         {{ $errors->first('condition') }}
@@ -67,14 +68,14 @@
             </div>
             <label class="main-form__label">ブランド名</label>
             <input type="text" class="main-form__input" name="brand">
-            <label for="" class="main-form__label"> 商品の説明</label>
+            <label class="main-form__label-description"> 商品の説明</label>
             <textarea class="main-form__text" name="description"></textarea>
             <div class="main-form__error">
                 @error('description')
                     {{ $errors->first('description') }}
                 @enderror
             </div>
-            <label for="" class="main-form__label"> 販売価格</label>
+            <label class="main-form__label"> 販売価格</label>
             <div class="price-wrap">
                 <span class="yen-mark">¥</span>
                 <input type="text" class="main-form__input-price" name="price">

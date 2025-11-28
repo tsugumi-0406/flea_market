@@ -7,6 +7,7 @@
 
 .item-image{
     width: 45%;
+    margin-top: 40px;
 }
 
 .main-sentence{
@@ -17,6 +18,7 @@
     font-size: 45px;
     font-weight: 700;
     margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 .main-sentence__brand{
@@ -25,8 +27,14 @@
 }
 
 .main-sentence__price{
-    font-size: 30px;
+    font-size: 45px;
     font-weight: 700;
+    margin-bottom: 0px;
+}
+
+.main-sentence__price__little{
+    font-size: 30px;
+    font-weight: 500;
 }
 
 .main-sentence__count{
@@ -34,10 +42,16 @@
     justify-content: space-between;
     width: 70px;
     margin-left: 80px;
+    font-size: 40px;
 }
 
 .count-num{
     margin-top: 0px;
+    margin-left: 10px;
+}
+
+.comment-count{
+    margin-left: 40px;
 }
 
 .count-comment{

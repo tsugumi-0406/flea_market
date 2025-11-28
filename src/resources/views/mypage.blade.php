@@ -7,9 +7,7 @@
 @section('content')
     <div class="mypage">
         <div class="mypage-inner">
-            <img src="{{ asset('storage/' . $account->image) }}" 
-                                alt="プロフィール画像" 
-                                class="mypage__image" width="100px" height="100px">
+            <img src="{{ asset('storage/' . $account->image) }}" alt="プロフィール画像" class="mypage__image" width="100px" height="100px">
             <p class="mypage__user-name">{{$account->name}}</p>
         </div>
         <a href="/mypage/profile" class="mypage__link">プロフィールを編集</a>

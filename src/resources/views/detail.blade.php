@@ -15,15 +15,17 @@
     <div class="main-sentence">
         <h1 class="main-sentence__name">{{$item->name}}</h1>
         <p class="main-sentence__brand">{{$item->brand}}</p>
-        <p class="main-sentence__price">¥{{$item->price}}(税込み)</p>
-        <!--いいねボタンの作成 -->
+        <p class="main-sentence__price">
+            <span class="main-sentence__price__little">¥</span>
+            {{$item->price}}
+            <span class="main-sentence__price__little">(税込み)</span>
+        </p>
         <div class="main-sentence__count">
             <div class="flex items-center gap-3">
-                <!-- いいねの数 -->
                 @php
                     $likes_count = $item->likes->count();
                 @endphp
-                <!-- ログインしている場合：押せるハート -->
+
                 @auth
                     @php
                         $account = \App\Models\Account::where('user_id', Auth::id())->first();
@@ -36,11 +38,11 @@
                         <ion-icon name="heart-outline" class="like-btn cursor-pointer" data-item-id="{{ $item->id }}"></ion-icon>
                     @endif
                 @endauth
-                <!-- ログインしていない場合：押せない（見かけだけ）のハート -->
+                
                 @guest
                     <ion-icon name="heart-outline"></ion-icon>
                 @endguest
-                <!-- いいね数（ログインしていなくても表示 -->
+                
                 <p class="count-num">{{ $likes_count }}</p>
             </div>
             <div class="comment-count">
