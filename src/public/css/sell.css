@@ -1,6 +1,6 @@
 .main-inner {
     width: 700px;
-    margin: 0 auto;
+    margin: 0 auto 100px auto;
 }
 
 .main-title {
@@ -26,6 +26,13 @@
 .main-form__label {
     font-size: 25px;
     font-weight: 700;
+}
+
+.main-form__label-description{
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 30px;
+    display: block;
 }
 
 .price-wrap {
@@ -57,6 +64,14 @@
 .main-form__condition-select{
     width: 100%;
     height: 40px;
+    appearance: none;
+}
+
+.select__triangle {
+    position: relative;
+    left: 670px;
+    top: -35px;
+    font-size: 12px;
 }
 
 .main-form__condition-option{
@@ -68,15 +83,12 @@
     color: red;
 }
 
-.subtitle{
-    border-bottom: solid 1px #5F5F5F;
-}
-
 .subtitle__text{
     font-size: 30px;
     font-weight: 700;
     color: #5F5F5F;
     margin-bottom: 0px;
+    border-bottom: solid 1px #5F5F5F;
 }
 
 .main-dorm__submit {
@@ -94,6 +106,14 @@
 .main-form__text{
     width: 100%;
     height: 200px;
+}
+
+.subtitle__text{
+    border-bottom: solid 1px #5F5F5F;
+}
+
+.subtitle{
+    margin-bottom: 30px;
 }
 
 .main-form__category{

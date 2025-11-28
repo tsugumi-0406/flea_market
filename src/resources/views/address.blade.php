@@ -10,22 +10,22 @@
             住所の変更
         </h1>
         <form action="{{ route('item.updateAddress', ['item_id' => $item->id]) }}" class="main-form" method="post" novalidate>
-            @csrf
-            <label for="" class="main-form__label">郵便番号</label>
+        @csrf
+            <label class="main-form__label">郵便番号</label>
             <input type="text" class="main-form__input" name="post_code">
             <div class="main-form__error">
                 @error('post_code')
                     {{ $errors->first('post_code') }}
                 @enderror
             </div>
-            <label for="" class="main-form__label"> 住所</label>
+            <label class="main-form__label"> 住所</label>
             <input type="text" class="main-form__input" name="address">
             <div class="main-form__error">
                 @error('address')
                     {{ $errors->first('address') }}
                 @enderror
             </div>
-            <label for="" class="main-form__label"> 建物名</label>
+            <label class="main-form__label"> 建物名</label>
             <input type="text" class="main-form__input" name="building">
             <div class="main-form__error">
                 @error('build')

@@ -27,7 +27,6 @@
                 <tr>
                     <td class="pay-table__td">支払方法</td>
                     <td>
-                        <!-- 選択に応じて切り替わる表示ブロック -->
                         <div class="bl_selectCont" id="1">
                             <div class="bl_selectCont_body">
                                 <p>コンビニ支払</p>
@@ -54,13 +53,13 @@
                         <option value="1">1. コンビニ支払い</option>
                         <option value="2">2. カード支払い</option>
                     </select>
+                    <span class="pay-form__select__triangle">▼</span>
                     <div class="comment-form__Error">
                         @error('item_id')
                             {{ $errors->first('item_id') }}
                         @enderror
                     </div>
                 </div>
-
                 <div class="bottum">
                     <div class="bottum-header">
                         <h2 class="buttum__title">配送先</h2>
@@ -68,7 +67,7 @@
                     </div>
                     <div class="bottom__destination">
                         <div class="post_code">
-                            <p>〒</p>
+                            <p class="post_code-mark">〒</p>
                             <input type="text" readonly class="bottom__destination--post_code" name="post_code" value="{{ $account->post_code }}">
                         </div>
                         <input type="text" readonly class="bottom__destination--address" name="address" value="{{ $account->address }}{{ $account->building }}">

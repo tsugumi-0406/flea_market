@@ -13,22 +13,19 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-# MySQL data - ignore everything inside the data folder
+
 /docker/mysql/data/*
 !/docker/mysql/data/.gitkeep
 
-# --- MySQL data (絶対にコミットしない) ---
 /docker/mysql/data/
 /docker/mysql/logs/
 /docker/mysql/dump/
 
-# MySQLが作る一時/ログ系
 **/ib_logfile*
 **/ibdata*
 **/*.ibd
 **/#innodb_temp/
 
-# （必要なら）空ディレクトリ保持用の .gitkeep だけ許可
 !/docker/mysql/data/.gitkeep
 !/docker/mysql/logs/.gitkeep
 !/docker/mysql/dump/.gitkeep
