@@ -19,14 +19,12 @@
         <div class="main-sentence">
             <p class="main-sente__text">登録されたメールアドレスに確認メールを送付しました。</p>
             <p class="main-sente__text">メール内のリンクをクリックして認証を完了してください。</p>
-            <!-- メール認証ページへ遷移 -->
             <a href="{{ route('verification.notice') }}" class="main-form__button">
                 認証はこちらから
             </a>
 
-            <!-- 再送ボタン -->
             <form method="POST" action="{{ route('verification.send') }}" class="main-form">
-            @csrf
+                @csrf
                 <button class="main-form__button">認証メールを再送する</button>
             </form>
         </div>
