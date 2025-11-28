@@ -19,7 +19,7 @@
                 @else
                     <img src="{{ asset('storage/noimage.png') }}" 
                         class="img-content">
-                    <p class="noimage-cont">アイコン</p>
+                    <p class="noimage-cont"></p>
                 @endif
                 <input type="file" name="image" accept="image/*" hidden id="imageInput">
                 <button type="button" class="form__input-image" onclick="document.getElementById('imageInput').click();">
