@@ -22,11 +22,11 @@ Laravel 環境構築
 ・phpMyAdmin : http://localhost:8080/ 
 
 ## 使用技術
-・PHP 8.1  
-・Laravel 8.83.29  
-・MySQL 8.0.26 
-・nginx:1.21.1   
+・PHP 8.1<br>
+・Laravel 8.83.29<br>
+・MySQL 8.0.26<br>
+・nginx:1.21.1
 
 
 ## ER図
-![ER図](image.png)
+![alt text](image.png)
