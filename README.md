@@ -19,7 +19,8 @@ Laravel 環境構築
 ## URL
 ・開発環境 : http://localhost/<br>
 ・ユーザー登録 : http://localhost/register<br>
-・phpMyAdmin : http://localhost:8080/ 
+・phpMyAdmin : http://localhost:8080/ <br>
+・メール認証 : http://localhost:8025/
 
 ## 使用技術
 ・PHP 8.1<br>
