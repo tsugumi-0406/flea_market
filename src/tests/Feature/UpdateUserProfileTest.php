@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
 
 class UpdateUserProfileTest extends TestCase
 {
@@ -17,7 +18,9 @@ class UpdateUserProfileTest extends TestCase
     // 変更項目が初期値として過去設定されていること（プロフィール画像、ユーザー名、郵便番号、住所）
     public function test_view_user_data_update()
     {
-        $user = \App\Models\User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
 
         $account = \App\Models\Account::factory()->create([
             'user_id' => $user->id,
